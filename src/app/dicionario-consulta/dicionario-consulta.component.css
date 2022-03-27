@@ -1,0 +1,101 @@
+.item-destaque{
+    color: rgb(216, 20, 101);
+}
+
+.dictionary-div {
+  width: 95%;
+}
+.dicionary-header-color {
+  height: 75px;
+  background-color: rgb(216, 20, 101);
+  padding: 2px;
+  margin: 2px;
+}
+.menu-dicionario{
+    margin: 20px auto;
+    width: auto;
+    padding: 5px 10px;
+    background-image: linear-gradient(rgb(252, 252, 252), rgb(131, 183, 224));
+    border-radius: 5px;
+    border: 1px solid rgb(93, 173, 226);
+    background-color: rgb(35, 198, 226);
+    color: rgb(0, 113, 199);
+  
+}
+
+.menu-dicionario a{
+    padding: 5px 5px;
+    text-decoration: none;
+}
+
+.menu-dicionario .active{
+font-weight:600;
+}
+
+.container {
+  display: grid;
+ 
+}
+
+.dicionary-header {
+  border-bottom: 3px solid #ebebeb;;
+}
+
+.dicionary {
+  
+  display: grid;
+}
+
+.dicionary-header-title {
+  
+  float: left;
+  text-align: left;
+  padding: 15px 10px 5px 10px;
+}
+.dicionary-header-item {
+  float: right;
+  text-align: center;
+  padding: 15px 10px 5px 10px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.table-item-title {
+  float: left;
+  text-align: left;
+
+}
+.table-item-see-more {
+  float: right;
+  
+}
+
+.table-item-description {
+  float: left;
+  
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-item-title {
+  font-weight: bolder;
+}
+
+td,
+th {
+  
+  text-align: left;
+  padding: 8px;
+}
+tr {
+    border-bottom: 1px solid #7c7c7c;
+}
+tr:nth-child(even) {
+  background-color: #ebebeb;
+}
+
+
