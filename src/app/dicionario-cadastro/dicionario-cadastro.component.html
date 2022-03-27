@@ -1,0 +1,10 @@
+<h1>Dicionário</h1>
+
+<ul>
+    <li *ngFor="let dicionario of dicionarios">
+        {{dicionario.nome}}
+        <a> Lupa</a>
+        <a> abc</a>
+        <a [routerLink]="['/dicionarios/', dicionario.codigo]"> Go</a>
+    </li>
+</ul>
