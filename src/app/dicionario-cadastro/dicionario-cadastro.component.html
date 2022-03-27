@@ -1,10 +1,26 @@
-<h1>Dicionário</h1>
-
-<ul>
-    <li *ngFor="let dicionario of dicionarios">
-        {{dicionario.nome}}
-        <a> Lupa</a>
-        <a> abc</a>
-        <a [routerLink]="['/dicionarios/', dicionario.codigo]"> Go</a>
-    </li>
-</ul>
+<main>
+    <div class="parte-superior">
+        <section class="titulo">
+            <h1 class="titulo--nome">Dicionário</h1>
+            <fa-icon [icon]="iconeAdicionar" size="lg" (click)="adicionarDicionario()"></fa-icon>
+        </section>
+        <section>
+            <fa-icon [icon]="iconeAjuda" size="lg"></fa-icon>
+            Ajuda
+        </section>
+    </div>
+    
+    <ul class="lista-dicionarios">
+        <li *ngFor="let dicionario of dicionarios"
+        class="lista-dicionarios__item"
+        >
+            {{dicionario.nome}}
+            <fa-icon [icon]="iconeLupa"></fa-icon>
+            <a> abc</a>
+            <fa-icon [icon]="iconeEngrenagem"></fa-icon>
+            <a [routerLink]="['/dicionarios/', dicionario.codigo]"> Go</a>
+            <fa-icon [icon]="iconeExcluir" (click)="excluirDicionario(dicionario.codigo)"></fa-icon>
+        </li>
+    </ul>
+    <fa-icon [icon]="iconeAdicionar" size="lg" (click)="adicionarDicionario()"></fa-icon>
+</main>

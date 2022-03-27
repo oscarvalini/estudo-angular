@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DicionarioService } from '../dicionario.service';
 import { Dicionario } from './dicionario.inteface';
+import { faGear, faMagnifyingGlass, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dicionario-cadastro',
@@ -9,6 +10,12 @@ import { Dicionario } from './dicionario.inteface';
 })
 export class DicionarioCadastroComponent implements OnInit {
 
+  iconeAdicionar = faPlusCircle;
+  iconeLupa = faMagnifyingGlass;
+  iconeEngrenagem = faGear;
+  iconeAjuda = faQuestionCircle;
+  iconeExcluir = faXmark;
+
   dicionarios: Dicionario[] = [];
 
   constructor(
@@ -16,7 +23,15 @@ export class DicionarioCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dicionarios = [...this.dicionarioService.getDicionarios()];
+    this.dicionarios = [...this.dicionarioService.buscaTodos()];
+  }
+
+  adicionarDicionario() {
+    console.log('abre modal dicionário');
+  }
+
+  excluirDicionario(codigoDicionario: Number) {
+    this.dicionarioService.exclui(codigoDicionario);
   }
 
 }

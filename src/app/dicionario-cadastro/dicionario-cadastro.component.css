@@ -1,0 +1,28 @@
+main {
+    margin: 50px;
+}
+.parte-superior {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+}
+
+.titulo--nome {
+    font-size: 24px;
+    margin: 0 10px 0 0;
+}
+
+.lista-dicionarios {
+    padding: 0;
+}
+
+.lista-dicionarios__item {
+    list-style: none;
+    margin: 0;
+    border-bottom: 1px solid #CCC;
+}

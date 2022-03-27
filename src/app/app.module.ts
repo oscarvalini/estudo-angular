@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { DicionarioCadastroComponent } from './dicionario-cadastro/dicionario-cadastro.component';
 import { DicionarioConsultaComponent } from './dicionario-consulta/dicionario-consulta.component';
 import { DicionarioTextoComponent } from './dicionario-texto/dicionario-texto.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DicionarioTextoComponent } from './dicionario-texto/dicionario-texto.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
