@@ -9,6 +9,9 @@ import { DicionarioConsultaComponent } from './dicionario-consulta/dicionario-co
 import { DicionarioTextoComponent } from './dicionario-texto/dicionario-texto.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ModalAdicionarDicionarioComponent } from './modal-adicionar-dicionario/modal-adicionar-dicionario.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +20,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DicionarioCadastroComponent,
     DicionarioConsultaComponent,
     DicionarioTextoComponent,
+    ModalAdicionarDicionarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ModalModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

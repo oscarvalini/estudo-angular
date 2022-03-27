@@ -2,25 +2,40 @@
     <div class="parte-superior">
         <section class="titulo">
             <h1 class="titulo--nome">Dicionário</h1>
-            <fa-icon [icon]="iconeAdicionar" size="lg" (click)="adicionarDicionario()"></fa-icon>
+            <fa-icon class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg"
+                (click)="abreDicionarioForm(template)"></fa-icon>
         </section>
         <section>
             <fa-icon [icon]="iconeAjuda" size="lg"></fa-icon>
             Ajuda
         </section>
     </div>
-    
+
     <ul class="lista-dicionarios">
-        <li *ngFor="let dicionario of dicionarios"
-        class="lista-dicionarios__item"
-        >
-            {{dicionario.nome}}
-            <fa-icon [icon]="iconeLupa"></fa-icon>
-            <a> abc</a>
-            <fa-icon [icon]="iconeEngrenagem"></fa-icon>
-            <a [routerLink]="['/dicionarios/', dicionario.codigo]"> Go</a>
-            <fa-icon [icon]="iconeExcluir" (click)="excluirDicionario(dicionario.codigo)"></fa-icon>
+        <li *ngFor="let dicionario of dicionarios" class="dicionario">
+            <span class="dicionario-nome">{{dicionario.nome}}</span>
+            <fa-icon class="dicionario-acao" [icon]="iconeLupa" [routerLink]="['/dicionarios/', dicionario.codigo]"
+                size="lg"></fa-icon>
+            <a class="dicionario-acao" routerLink="/dicionario/{{dicionario.codigo}}/palavras">abc</a>
+            <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg"></fa-icon>
+            <fa-icon class="dicionario-acao" [icon]="iconeExcluir" size="lg"
+                (click)="excluirDicionario(dicionario.codigo)"></fa-icon>
         </li>
     </ul>
-    <fa-icon [icon]="iconeAdicionar" size="lg" (click)="adicionarDicionario()"></fa-icon>
+    <fa-icon class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">
+    </fa-icon>
 </main>
+
+<ng-template #template>
+    <div class="modal-header">
+        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
+        <h4 class="modal-title"> Dicionário</h4>
+        <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="dicionarioForm" (ngSubmit)="adicionarDicionario()">
+            <label class="form-label" for="titulo">Título</label>
+            <input class="form-control" type="text" formControlName="nome" name="titulo">
+        </form>
+    </div>
+</ng-template>
