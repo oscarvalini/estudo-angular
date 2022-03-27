@@ -11,8 +11,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'dicionarios', component: DicionarioCadastroComponent },
-  { path: 'dicionarios/:id', component: DicionarioTextoComponent },
-  { path: 'diana', component: DicionarioConsultaComponent },
+  { path: 'dicionarios/:id', component: DicionarioConsultaComponent },
   { path: '**', redirectTo: 'dicionarios' }
 ];
 

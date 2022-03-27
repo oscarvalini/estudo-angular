@@ -52,7 +52,7 @@
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more"><a class="item-destaque" href="">Ver mais</a></td>
+            <td class="table-item-see-more"><a class="item-destaque" (click)="abrirModal(templateDetalhesDicionario)">Ver mais</a></td>
           </div>
           <div>
             <td class="table-item-description">
@@ -142,3 +142,13 @@
     </table>
   </div>
 </div>
+
+<ng-template #templateDetalhesDicionario>
+  <div class="modal-header">
+      <h4 class="modal-title"> Titulo Modal</h4>
+      <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeFechar"(click)="modalRef?.hide()" size="lg"></fa-icon>
+  </div>
+  <div class="modal-body">
+    akjfkjaklfjklajwfkl
+  </div>
+</ng-template>
