@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dicionario-consulta',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DicionarioConsultaComponent implements OnInit {
 
+  iconeConfig = faGear
   constructor() { }
 
   ngOnInit(): void {
