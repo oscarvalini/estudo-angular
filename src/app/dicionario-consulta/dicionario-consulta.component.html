@@ -60,15 +60,15 @@
 </div>
 
 <ng-template #templateDetalhesDicionario class="modal-lg">
-  <div class="modal-header">
-    <fa-icon [style.color]="dicionario.corIcone" 
+  <div class="modal-header" [style.backgroundColor]="dicionario.corBotao"  >
+    <fa-icon [style.color]="dicionario.corBotaoFonte" 
       class="pull-left"
       aria-hidden="true"
       [icon]="iconeDocumento"
       size="lg"
     ></fa-icon>
-    <h4 [style.color]="dicionario.corTitulo" >{{ palavraModal.texto}}</h4>
-    <fa-icon [style.color]="dicionario.corIcone" 
+    <h4 [style.color]="dicionario.corBotaoFonte" >{{ palavraModal.texto}}</h4>
+    <fa-icon [style.color]="dicionario.corBotaoFonte" 
       class="pull-right"
       aria-hidden="true"
       [icon]="iconeFechar"

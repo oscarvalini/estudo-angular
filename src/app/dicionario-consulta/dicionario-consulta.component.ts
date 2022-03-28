@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 import {
   faCross,
@@ -10,6 +11,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { Dicionario } from '../dicionario-cadastro/dicionario.inteface';
 import { Palavra } from '../dicionario-cadastro/palavra.interface';
 import { DicionarioService } from '../dicionario.service';
+
 
 @Component({
   selector: 'app-dicionario-consulta',
@@ -30,11 +32,17 @@ dicionario! : Dicionario ;
 
 
   constructor(
+    private route: ActivatedRoute,
     private modalService: BsModalService,
     private dicionarioService: DicionarioService
   ) {}
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {    
+      this.codigoDicionario = (params['id']);
+    });
+
     this.dicionario = this.dicionarioService.buscaDicionario(this.codigoDicionario)!;
    
     this.palavras = this.dicionario?.palavras;

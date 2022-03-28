@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ModalAdicionarDicionarioComponent
   ],
   imports: [
+  
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
