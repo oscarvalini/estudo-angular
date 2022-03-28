@@ -17,9 +17,9 @@
             <fa-icon class="dicionario-acao" [icon]="iconeLupa" [routerLink]="['/dicionarios/', dicionario.codigo]"
                 size="lg"></fa-icon>
             <a class="dicionario-acao" routerLink="/dicionario/{{dicionario.codigo}}/palavras">abc</a>
-            <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg"></fa-icon>
+            <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg" (click)="editaDicionario(template, dicionario)"></fa-icon>
             <fa-icon class="dicionario-acao" [icon]="iconeExcluir" size="lg"
-                (click)="excluirDicionario(dicionario.codigo)"></fa-icon>
+                (click)="excluiDicionario(dicionario.codigo)"></fa-icon>
         </li>
     </ul>
     <fa-icon class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">

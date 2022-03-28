@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { DicionarioService } from '../dicionario.service';
 import { Dicionario } from './dicionario.inteface';
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -57,31 +57,39 @@ export class DicionarioCadastroComponent implements OnInit {
 
     const dicionario: Dicionario = this.dicionarioForm.getRawValue();
 
-    console.log(dicionario)
-
     if(dicionario.codigo && dicionario.codigo > 0) {
       this.atualizaDicionario(dicionario);
     } else {
       this.adicionaDicionario(dicionario);
     }
     this.limpaFormulario();
+    this.modalService.hide();
   }
 
   adicionaDicionario(dicionario: Dicionario) {
     console.log(dicionario)
-    const dicionarioAdicionado = this.dicionarioService.adiciona(dicionario);
-    this.dicionarios.push(dicionarioAdicionado);
+    this.dicionarioService.adiciona(dicionario);
+    this.buscaDicionarios();
   }
 
   atualizaDicionario(dicionarioAtualizar: Dicionario) {
     console.log(dicionarioAtualizar)
     this.dicionarioService.atualiza(dicionarioAtualizar);
-    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
-    this.dicionarios[indice] = dicionarioAtualizar;
+    this.buscaDicionarios();
   }
 
-  excluirDicionario(codigoDicionario: Number) {
+  editaDicionario(template: TemplateRef<any>, dicionarioEditar: Dicionario) {
+    this.dicionarioForm.patchValue({...dicionarioEditar})
+    this.modalRef = this.modalService.show(template)
+  }
+
+  excluiDicionario(codigoDicionario: Number) {
     this.dicionarioService.exclui(codigoDicionario);
+    this.buscaDicionarios();
+  }
+
+  buscaDicionarios() {
+    this.dicionarios = this.dicionarioService.buscaTodos();
   }
 
   limpaFormulario() {
