@@ -60,3 +60,25 @@ main {
 
     color: white;
 }
+
+.item-formulario {
+    margin-bottom: 10px;
+}
+
+form label {
+    font-size: 14px;
+    color: #858585;
+}
+
+.colorpicker {
+    width: 40px;
+}
+
+.inline {
+    display: flex;
+    align-items: center;
+}
+
+.inline label {
+    margin-left: 20px;
+}

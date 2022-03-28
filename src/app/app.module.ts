@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalAdicionarDicionarioComponent } from './modal-adicionar-dicionario/modal-adicionar-dicionario.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     FontAwesomeModule,
     ModalModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,14 +17,16 @@
             <fa-icon class="dicionario-acao" [icon]="iconeLupa" [routerLink]="['/dicionarios/', dicionario.codigo]"
                 size="lg"></fa-icon>
             <a class="dicionario-acao" routerLink="/dicionario/{{dicionario.codigo}}/palavras">abc</a>
-            <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg"></fa-icon>
+            <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg" (click)="editaDicionario(template, dicionario)"></fa-icon>
             <fa-icon class="dicionario-acao" [icon]="iconeExcluir" size="lg"
-                (click)="excluirDicionario(dicionario.codigo)"></fa-icon>
+                (click)="excluiDicionario(dicionario.codigo)"></fa-icon>
         </li>
     </ul>
     <fa-icon class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">
     </fa-icon>
 </main>
+
+<!-- MODAL Dicionário -->
 
 <ng-template #template>
     <div class="modal-header">
@@ -33,9 +35,58 @@
         <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
     </div>
     <div class="modal-body">
-        <form [formGroup]="dicionarioForm" (ngSubmit)="adicionarDicionario()">
-            <label class="form-label" for="titulo">Título</label>
-            <input class="form-control" type="text" formControlName="nome" name="titulo">
+        <form class="form" [formGroup]="dicionarioForm" (ngSubmit)="onSubmit()">
+            <div class="item-formulario">
+                <label class="form-label" for="titulo">Título</label>
+                <input class="form-control" type="text" formControlName="nome" name="titulo">
+            </div>
+            <small 
+                *ngIf="submitted && dicionarioForm.get('nome')?.errors?.['required']"
+                class="text-danger d-block mt-2">Campo Obrigatório
+            </small> 
+            <div class="item-formulario inline">
+                <input
+                    name="corBotao"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corBotao'].value"
+                    [style.background]="dicionarioForm.controls['corBotao'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corBotao'].setValue($event)"
+                />
+                <label for="corBotao">Cor de fundo do botão</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corBotaoFonte"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corBotaoFonte'].value"
+                    [style.background]="dicionarioForm.controls['corBotaoFonte'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corBotaoFonte'].setValue($event)"
+                />
+                <label for="corBotaoFonte">Cor da fonte do botão</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corTitulo"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corTitulo'].value"
+                    [style.background]="dicionarioForm.controls['corTitulo'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corTitulo'].setValue($event)"
+                />
+                <label for="corTitulo">Cor da fonte para títulos</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corIcone"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corIcone'].value"
+                    [style.background]="dicionarioForm.controls['corIcone'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corIcone'].setValue($event)"
+                />
+                <label for="corIcone">Cor do ícone</label>
+            </div>
+
+            <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
+
         </form>
     </div>
 </ng-template>

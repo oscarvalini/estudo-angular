@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { DicionarioService } from '../dicionario.service';
 import { Dicionario } from './dicionario.inteface';
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -24,13 +24,15 @@ export class DicionarioCadastroComponent implements OnInit {
   dicionarios: Dicionario[] = [];
 
   dicionarioForm = this.formBuilder.group({
-    codigo: [''],
+    codigo: [],
     nome: ['', Validators.required],
     corBotao: ['#000000', Validators.required],
     corBotaoFonte: ['#FFFFFF', Validators.required],
     corTitulo: ['#FFFFFF', Validators.required],
     corIcone: ['#FFFFFF', Validators.required]
   })
+
+  submitted = false;
 
   constructor(
     private dicionarioService: DicionarioService,
@@ -46,12 +48,63 @@ export class DicionarioCadastroComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  adicionarDicionario() {
-    console.log('adicionando Funcionário');
+  onSubmit() {
+    this.submitted = true;
+
+    if(!this.dicionarioForm.valid) {
+      return;
+    }
+
+    const dicionario: Dicionario = this.dicionarioForm.getRawValue();
+
+    if(dicionario.codigo && dicionario.codigo > 0) {
+      this.atualizaDicionario(dicionario);
+    } else {
+      this.adicionaDicionario(dicionario);
+    }
+    this.limpaFormulario();
+    this.modalService.hide();
   }
 
-  excluirDicionario(codigoDicionario: Number) {
+  adicionaDicionario(dicionario: Dicionario) {
+    console.log(dicionario)
+    this.dicionarioService.adiciona(dicionario);
+    this.buscaDicionarios();
+  }
+
+  atualizaDicionario(dicionarioAtualizar: Dicionario) {
+    console.log(dicionarioAtualizar)
+    this.dicionarioService.atualiza(dicionarioAtualizar);
+    this.buscaDicionarios();
+  }
+
+  editaDicionario(template: TemplateRef<any>, dicionarioEditar: Dicionario) {
+    this.dicionarioForm.patchValue({...dicionarioEditar})
+    this.modalRef = this.modalService.show(template)
+  }
+
+  excluiDicionario(codigoDicionario: Number) {
     this.dicionarioService.exclui(codigoDicionario);
+    this.buscaDicionarios();
+  }
+
+  buscaDicionarios() {
+    this.dicionarios = this.dicionarioService.buscaTodos();
+    console.log(this.dicionarios);
+  }
+
+  limpaFormulario() {
+    this.dicionarioForm.reset({
+      corBotao: '#000000',
+      corBotaoFonte: '#FFFFFF',
+      corTitulo: '#FFFFFF',
+      corIcone: '#FFFFFF'
+    });
+    this.submitted = false;
+  }
+
+  changeColor(event: any) {
+    console.log(event);
   }
 
 }

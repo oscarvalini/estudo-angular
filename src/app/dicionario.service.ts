@@ -6,6 +6,9 @@ import { Palavra } from './dicionario-cadastro/palavra.interface';
   providedIn: 'root',
 })
 export class DicionarioService {
+
+  dicionarioSequencia = 4;
+
   palavrasDic: Palavra[] = [
     {
       codigo: 1,
@@ -104,8 +107,20 @@ export class DicionarioService {
 
   constructor() {}
 
-  buscaDicionario(codigoDicionario: Number): Dicionario | undefined {
-    return this.dicionarios.find((d) => d.codigo == codigoDicionario);
+  atualiza(dicionarioAtualizar: Dicionario): Boolean {
+    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
+    this.dicionarios[indice] = dicionarioAtualizar;
+    return true;
+  }
+
+  adiciona(dicionario: Dicionario): Dicionario {
+    dicionario.codigo = ++this.dicionarioSequencia;
+    this.dicionarios.push(dicionario);
+    return dicionario;
+  }
+
+  buscaDicionario(codigoDicionario: Number ): Dicionario | undefined{
+    return  this.dicionarios.find(d => d.codigo == codigoDicionario)
   }
 
   buscaTodos(): Dicionario[] {
@@ -125,6 +140,7 @@ export class DicionarioService {
   }
 
   exclui(codigoDicionario: Number) {
-    console.log('excluir Dicionário ' + codigoDicionario);
+    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
+    this.dicionarios.splice(indice, 1);
   }
 }
