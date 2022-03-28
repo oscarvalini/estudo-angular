@@ -6,8 +6,9 @@
                 (click)="abreDicionarioForm(template)"></fa-icon>
         </section>
         <section>
-            <fa-icon [icon]="iconeAjuda" size="lg"></fa-icon>
-            Ajuda
+            <fa-icon [style.color]= "'#73b453'" [icon]="iconeAjuda" size="lg"></fa-icon>
+            <span [style.color]= "'#73b453'"> Ajuda</span>
+            
         </section>
     </div>
 
@@ -22,7 +23,7 @@
                 (click)="excluiDicionario(dicionario.codigo)"></fa-icon>
         </li>
     </ul>
-    <fa-icon class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">
+    <fa-icon [style.color]= "'#73b453'"  class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">
     </fa-icon>
 </main>
 
