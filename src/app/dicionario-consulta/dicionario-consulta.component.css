@@ -1,5 +1,5 @@
 .item-destaque{
-    color: rgb(216, 20, 101);
+   
 }
 
 .dictionary-div {
@@ -7,7 +7,7 @@
 }
 .dicionary-header-color {
   height: 75px;
-  background-color: rgb(216, 20, 101);
+ 
   padding: 2px;
   margin: 2px;
 }
@@ -76,7 +76,7 @@ font-weight:600;
 }
 
 .modal-detalhes-dicionario{
-    background-color: rgb(216, 20, 101);
+    
     color: white;
 }
 

@@ -9,15 +9,15 @@
   
   <div class="dicionary-header">
     <div class="dicionary-header-title">
-      <h5 [style.fontColor]="dicionario.corTitulo">{{dicionario.nome}}</h5>
+      <h5 [style.color]="dicionario.corTitulo">{{dicionario.nome}}</h5>
     </div>
     <div class="dicionary-header-item">
       <div>
-        <fa-icon [style.fontColor]="dicionario.corIcone" [icon]="iconeConfig" size="lg"></fa-icon>
+        <fa-icon [style.color]="dicionario.corIcone" [icon]="iconeConfig" size="lg"></fa-icon>
       </div>
     </div>
     <div class="dicionary-header-item">
-      <div [style.fontColor]="dicionario.corTitulo"  >abc</div>
+      <div [style.color]="dicionario.corTitulo">abc</div>
     </div>
   </div>
 
@@ -35,10 +35,10 @@
     
         <div class="dicionary-body">
           <div class="table-data">
-            <td class="table-item-title"><span>{{palavra.texto}}</span></td>
+            <td class="table-item-title"><span  [style.color]="dicionario.corTitulo" >{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
               <a
-              [style.fontColor]="dicionario.corTitulo"
+              [style.color]="dicionario.corTitulo"
                 (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)"
                 >Ver mais</a
               >
@@ -61,14 +61,14 @@
 
 <ng-template #templateDetalhesDicionario class="modal-lg">
   <div class="modal-header">
-    <fa-icon [style.fontColor]="dicionario.corIcone" 
+    <fa-icon [style.color]="dicionario.corIcone" 
       class="pull-left"
       aria-hidden="true"
       [icon]="iconeDocumento"
       size="lg"
     ></fa-icon>
-    <h4 [style.fontColor]="dicionario.corTitulo" >{{ palavraModal.texto}}</h4>
-    <fa-icon [style.fontColor]="dicionario.corIcone" 
+    <h4 [style.color]="dicionario.corTitulo" >{{ palavraModal.texto}}</h4>
+    <fa-icon [style.color]="dicionario.corIcone" 
       class="pull-right"
       aria-hidden="true"
       [icon]="iconeFechar"
@@ -80,7 +80,7 @@
     {{ palavraModal.definicao_extra}}
   </div>
   <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
-    <button [style.backgroundColor]="dicionario.corBotao" [style.fontColor]="dicionario.corBotaoFonte" class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
+    <button [style.backgroundColor]="dicionario.corBotao" [style.color]="dicionario.corBotaoFonte" class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
     </button>
 </div>
  

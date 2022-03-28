@@ -67,10 +67,10 @@ export class DicionarioService {
     {
       codigo: 1,
       nome: 'Teste',
-      corTitulo: '#2233CC',
-      corBotao: '#000000',
+      corTitulo: '#FF1493',
+      corBotao: '#FF1493',
       corBotaoFonte: '#FFFFFF',
-      corIcone: '#000000',
+      corIcone: '#FF1493',
       palavras: this.palavrasDic,
     } as Dicionario,
     {
