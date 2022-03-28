@@ -3,7 +3,7 @@
 
   <div class="dicionary-header">
     <div class="dicionary-header-title">
-      <h5 class="item-destaque">Dicionário Join HR</h5>
+      <h5 class="item-destaque">{{nomeDicionario}}</h5>
     </div>
     <div class="dicionary-header-item">
       <div>
@@ -16,141 +16,37 @@
   </div>
 
   <div class="menu-dicionario">
-    <a href="#home">A</a>
-    <a href="#news">B</a>
-    <a href="#contact">C</a>
-    <a href="#contact">D</a>
-    <a href="#contact">E</a>
-    <a href="#contact">F</a>
-    <a href="#contact">G</a>
-    <a href="#contact">H</a>
-    <a href="#contact">I</a>
-    <a href="#contact">J</a>
-    <a href="#contact">K</a>
-    <a href="#contact">L</a>
-    <a href="#contact">M</a>
-    <a href="#contact">N</a>
-    <a href="#contact">O</a>
-    <a href="#contact">P</a>
-    <a href="#contact">Q</a>
-    <a href="#contact">R</a>
-    <a href="#contact">S</a>
-    <a href="#contact">T</a>
-    <a href="#contact">U</a>
-    <a href="#contact">V</a>
-    <a href="#contact">W</a>
-    <a href="#contact">X</a>
-    <a href="#contact">Y</a>
-    <a href="#contact">Z</a>
+    <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)"> {{letra}} </a>
 
     <a class="active" href="#about">Todos</a>
   </div>
 
   <div class="dicionary">
     <table>
-      <tr>
+        <tr *ngFor="let palavra of palavras" class="dicionario">
+    
         <div class="dicionary-body">
           <div class="table-data">
-            <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
+            <td class="table-item-title"><span>{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
               <a
                 class="item-destaque"
-                (click)="openModalWithComponent(templateDetalhesDicionario)"
+                (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)"
                 >Ver mais</a
               >
             </td>
           </div>
           <div>
             <td class="table-item-description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+                {{palavra.definicao}}
             </td>
           </div>
         </div>
       </tr>
 
-      <tr>
-        <div class="dicionary-body">
-          <div class="table-data">
-            <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more">
-              <a class="item-destaque" href="">Ver mais</a>
-            </td>
-          </div>
-          <div>
-            <td class="table-item-description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </td>
-          </div>
-        </div>
-      </tr>
-
-      <tr>
-        <div class="dicionary-body">
-          <div class="table-data">
-            <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more">
-              <a class="item-destaque" href="">Ver mais</a>
-            </td>
-          </div>
-          <div>
-            <td class="table-item-description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </td>
-          </div>
-        </div>
-      </tr>
-
-      <tr>
-        <div class="dicionary-body">
-          <div class="table-data">
-            <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more">
-              <a class="item-destaque" href="">Ver mais</a>
-            </td>
-          </div>
-          <div>
-            <td class="table-item-description">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </td>
-          </div>
-        </div>
-      </tr>
+      
+       
+     
     </table>
   </div>
 </div>
@@ -163,7 +59,7 @@
       [icon]="iconeDocumento"
       size="lg"
     ></fa-icon>
-    <h4>I.A.S.</h4>
+    <h4>{{ palavraModal.texto}}</h4>
     <fa-icon
       class="pull-right"
       aria-hidden="true"
@@ -173,99 +69,8 @@
     ></fa-icon>
   </div>
   <div class="modal-body">
-    <p>
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-      roots in a piece of classical Latin literature from 45 BC, making it over
-      2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-      College in Virginia, looked up one of the more obscure Latin words,
-      consectetur, from a Lorem Ipsum passage, and going through the cites of
-      the word in classical literature, discovered the undoubtable source. Lorem
-      Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-      Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
-      book is a treatise on the theory of ethics, very popular during the
-      Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-      amet..", comes from a line in section 1.10.32.
-    </p>
-    <p>
-      It is a long established fact that a reader will be distracted by the
-      readable content of a page when looking at its layout. The point of using
-      Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-      as opposed to using 'Content here, content here', making it look like
-      readable English. Many desktop publishing packages and web page editors
-      now use Lorem Ipsum as their default model text, and a search for 'lorem
-      ipsum' will uncover many web sites still in their infancy. Various
-      versions have evolved over the years, sometimes by accident, sometimes on
-      purpose (injected humour and the like).
-    </p>
-    <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of using
-        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-        as opposed to using 'Content here, content here', making it look like
-        readable English. Many desktop publishing packages and web page editors
-        now use Lorem Ipsum as their default model text, and a search for 'lorem
-        ipsum' will uncover many web sites still in their infancy. Various
-        versions have evolved over the years, sometimes by accident, sometimes on
-        purpose (injected humour and the like).
-      </p>
+    {{ palavraModal.definicao_extra}}
   </div>
-
-
   <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
     <button class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
     </button>

@@ -57,13 +57,21 @@ export class DicionarioService {
     this.dicionarios.push(dicionario);
     return dicionario;
   }
+  buscaDicionario(codigoDicionario: Number ): Dicionario | undefined{
+    return  this.dicionarios.find(d => d.codigo == codigoDicionario)
+  }
+
 
   buscaTodos(): Dicionario[] {
     return  this.dicionarios;
   }
 
   buscaPorLetra(codigoDicionario: Number , letraBuscada: String) : Palavra[]|undefined {
-    return  this.dicionarios.find(d => d.codigo == codigoDicionario)?.palavras.filter(p => p.texto.charAt(0) == letraBuscada)
+    return  this.buscaDicionario(codigoDicionario)?.palavras.filter(p => p.texto.charAt(0) == letraBuscada)
+  }
+  buscaPalavras(codigoDicionario: Number) : Dicionario|undefined {
+    return this.dicionarios.find(d => d.codigo == codigoDicionario)
+
   }
 
   exclui(codigoDicionario: Number) {
