@@ -62,7 +62,7 @@
                     [style.background]="dicionarioForm.controls['corBotaoFonte'].value"
                     (colorPickerChange)="dicionarioForm.controls['corBotaoFonte'].setValue($event)"
                 />
-                <label for="corBotaoFonte">Cor de fundo do botão</label>
+                <label for="corBotaoFonte">Cor da fonte do botão</label>
             </div>
             <div class="item-formulario inline">
                 <input 
@@ -72,7 +72,7 @@
                     [style.background]="dicionarioForm.controls['corTitulo'].value"
                     (colorPickerChange)="dicionarioForm.controls['corTitulo'].setValue($event)"
                 />
-                <label for="corTitulo">Cor de fundo do botão</label>
+                <label for="corTitulo">Cor da fonte para títulos</label>
             </div>
             <div class="item-formulario inline">
                 <input 
@@ -82,7 +82,7 @@
                     [style.background]="dicionarioForm.controls['corIcone'].value"
                     (colorPickerChange)="dicionarioForm.controls['corIcone'].setValue($event)"
                 />
-                <label for="corIcone">Cor de fundo do botão</label>
+                <label for="corIcone">Cor do ícone</label>
             </div>
 
             <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
