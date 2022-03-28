@@ -26,7 +26,7 @@ export class DicionarioCadastroComponent implements OnInit {
   dicionarioForm = this.formBuilder.group({
     codigo: [''],
     nome: ['', Validators.required],
-    corBotao: ['#000000', Validators.required],
+    corBotao: ['#CCCCCC', Validators.required],
     corBotaoFonte: ['#FFFFFF', Validators.required],
     corTitulo: ['#FFFFFF', Validators.required],
     corIcone: ['#FFFFFF', Validators.required]
@@ -47,11 +47,18 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   adicionarDicionario() {
-    console.log('adicionando Funcionário');
+    if(this.dicionarioForm.valid) {
+      const dicionario = this.dicionarioForm.getRawValue();
+      //this.dicionarioService.adiciona(dicionario);
+      this.dicionarioForm.reset();
+    } 
   }
 
   excluirDicionario(codigoDicionario: Number) {
     this.dicionarioService.exclui(codigoDicionario);
+  }
+  changeColor(event: any) {
+    console.log(event);
   }
 
 }

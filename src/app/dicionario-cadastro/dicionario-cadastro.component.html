@@ -26,6 +26,8 @@
     </fa-icon>
 </main>
 
+<!-- MODAL Dicionário -->
+
 <ng-template #template>
     <div class="modal-header">
         <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
@@ -33,9 +35,54 @@
         <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
     </div>
     <div class="modal-body">
-        <form [formGroup]="dicionarioForm" (ngSubmit)="adicionarDicionario()">
-            <label class="form-label" for="titulo">Título</label>
-            <input class="form-control" type="text" formControlName="nome" name="titulo">
+        <form class="form" [formGroup]="dicionarioForm" (ngSubmit)="adicionarDicionario()">
+            <div class="item-formulario">
+                <label class="form-label" for="titulo">Título</label>
+                <input class="form-control" type="text" formControlName="nome" name="titulo">
+            </div>
+            <div class="item-formulario inline">
+                <input
+                    name="corBotao"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corBotao'].value"
+                    [style.background]="dicionarioForm.controls['corBotao'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corBotao'].setValue($event)"
+                />
+                <label for="corBotao">Cor de fundo do botão</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corBotaoFonte"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corBotaoFonte'].value"
+                    [style.background]="dicionarioForm.controls['corBotaoFonte'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corBotaoFonte'].setValue($event)"
+                />
+                <label for="corBotaoFonte">Cor de fundo do botão</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corTitulo"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corTitulo'].value"
+                    [style.background]="dicionarioForm.controls['corTitulo'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corTitulo'].setValue($event)"
+                />
+                <label for="corTitulo">Cor de fundo do botão</label>
+            </div>
+            <div class="item-formulario inline">
+                <input 
+                    name="corIcone"
+                    class="form-control colorpicker"
+                    [colorPicker]="dicionarioForm.controls['corIcone'].value"
+                    [style.background]="dicionarioForm.controls['corIcone'].value"
+                    (colorPickerChange)="dicionarioForm.controls['corIcone'].setValue($event)"
+                />
+                <label for="corIcone">Cor de fundo do botão</label>
+            </div>
+
+            <button class="btn btn-primary" (submit)="adicionarDicionario()">Salvar</button>
+
         </form>
     </div>
 </ng-template>
