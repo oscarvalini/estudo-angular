@@ -35,11 +35,15 @@
         <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
     </div>
     <div class="modal-body">
-        <form class="form" [formGroup]="dicionarioForm" (ngSubmit)="adicionarDicionario()">
+        <form class="form" [formGroup]="dicionarioForm" (ngSubmit)="onSubmit()">
             <div class="item-formulario">
                 <label class="form-label" for="titulo">Título</label>
                 <input class="form-control" type="text" formControlName="nome" name="titulo">
             </div>
+            <small 
+                *ngIf="submitted && dicionarioForm.get('nome')?.errors?.['required']"
+                class="text-danger d-block mt-2">Campo Obrigatório
+            </small> 
             <div class="item-formulario inline">
                 <input
                     name="corBotao"
@@ -81,7 +85,7 @@
                 <label for="corIcone">Cor de fundo do botão</label>
             </div>
 
-            <button class="btn btn-primary" (submit)="adicionarDicionario()">Salvar</button>
+            <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
 
         </form>
     </div>

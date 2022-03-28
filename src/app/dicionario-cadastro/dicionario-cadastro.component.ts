@@ -24,13 +24,15 @@ export class DicionarioCadastroComponent implements OnInit {
   dicionarios: Dicionario[] = [];
 
   dicionarioForm = this.formBuilder.group({
-    codigo: [''],
+    codigo: [],
     nome: ['', Validators.required],
     corBotao: ['#000000', Validators.required],
     corBotaoFonte: ['#FFFFFF', Validators.required],
     corTitulo: ['#FFFFFF', Validators.required],
     corIcone: ['#FFFFFF', Validators.required]
   })
+
+  submitted = false;
 
   constructor(
     private dicionarioService: DicionarioService,
@@ -46,19 +48,40 @@ export class DicionarioCadastroComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  adicionarDicionario() {
+  onSubmit() {
+    this.submitted = true;
+
     if(!this.dicionarioForm.valid) {
       return;
     }
 
     const dicionario: Dicionario = this.dicionarioForm.getRawValue();
 
-    if(!!dicionario.codigo) {
-      this.dicionarioService.atualiza(dicionario);
+    console.log(dicionario)
+
+    if(dicionario.codigo && dicionario.codigo > 0) {
+      this.atualizaDicionario(dicionario);
     } else {
-      this.dicionarioService.adiciona(dicionario);
+      this.adicionaDicionario(dicionario);
     }
     this.limpaFormulario();
+  }
+
+  adicionaDicionario(dicionario: Dicionario) {
+    console.log(dicionario)
+    const dicionarioAdicionado = this.dicionarioService.adiciona(dicionario);
+    this.dicionarios.push(dicionarioAdicionado);
+  }
+
+  atualizaDicionario(dicionarioAtualizar: Dicionario) {
+    console.log(dicionarioAtualizar)
+    this.dicionarioService.atualiza(dicionarioAtualizar);
+    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
+    this.dicionarios[indice] = dicionarioAtualizar;
+  }
+
+  excluirDicionario(codigoDicionario: Number) {
+    this.dicionarioService.exclui(codigoDicionario);
   }
 
   limpaFormulario() {
@@ -68,11 +91,9 @@ export class DicionarioCadastroComponent implements OnInit {
       corTitulo: '#FFFFFF',
       corIcone: '#FFFFFF'
     });
+    this.submitted = false;
   }
 
-  excluirDicionario(codigoDicionario: Number) {
-    this.dicionarioService.exclui(codigoDicionario);
-  }
   changeColor(event: any) {
     console.log(event);
   }
