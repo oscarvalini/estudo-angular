@@ -107,9 +107,9 @@ export class DicionarioService {
 
   constructor() {}
 
-  atualiza(dicionario: Dicionario): Boolean {
-    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionario.codigo);
-    this.dicionarios[indice] = dicionario;
+  atualiza(dicionarioAtualizar: Dicionario): Boolean {
+    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
+    this.dicionarios[indice] = dicionarioAtualizar;
     return true;
   }
 
@@ -141,6 +141,6 @@ export class DicionarioService {
 
   exclui(codigoDicionario: Number) {
     const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
-    delete this.dicionarios[indice];
+    this.dicionarios.splice(indice, 1);
   }
 }

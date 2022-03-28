@@ -90,6 +90,7 @@ export class DicionarioCadastroComponent implements OnInit {
 
   buscaDicionarios() {
     this.dicionarios = this.dicionarioService.buscaTodos();
+    console.log(this.dicionarios);
   }
 
   limpaFormulario() {
