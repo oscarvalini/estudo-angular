@@ -1,24 +1,32 @@
 <div class="container dictionary-div">
-  <div class="dicionary-header-color"></div>
+  <div class="dicionary-header-color" [style.backgroundColor]="dicionario.corIcone" ></div>
 
+  <!-- ] corTitulo: '#2233CC',
+  corBotao: '#CCCCCC',
+  corBotaoFonte: '#000000',
+  corIcone: '#000000', -->
+
+  
   <div class="dicionary-header">
     <div class="dicionary-header-title">
-      <h5 class="item-destaque">{{nomeDicionario}}</h5>
+      <h5 [style.fontColor]="dicionario.corTitulo">{{dicionario.nome}}</h5>
     </div>
     <div class="dicionary-header-item">
       <div>
-        <fa-icon class="item-destaque" [icon]="iconeConfig" size="lg"></fa-icon>
+        <fa-icon [style.fontColor]="dicionario.corIcone" [icon]="iconeConfig" size="lg"></fa-icon>
       </div>
     </div>
     <div class="dicionary-header-item">
-      <div class="item-destaque">abc</div>
+      <div [style.fontColor]="dicionario.corTitulo"  >abc</div>
     </div>
   </div>
 
   <div class="menu-dicionario">
-    <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)"> {{letra}} </a>
+    <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)" [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
 
-    <a class="active" href="#about">Todos</a>
+    <a (click)="desfazerFiltro()" [ngClass]="{'active' : letraEstaSelecionada('Todos')}">Todos</a>
+
+
   </div>
 
   <div class="dicionary">
@@ -30,7 +38,7 @@
             <td class="table-item-title"><span>{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
               <a
-                class="item-destaque"
+              [style.fontColor]="dicionario.corTitulo"
                 (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)"
                 >Ver mais</a
               >
@@ -52,15 +60,15 @@
 </div>
 
 <ng-template #templateDetalhesDicionario class="modal-lg">
-  <div class="modal-header modal-detalhes-dicionario">
-    <fa-icon
+  <div class="modal-header">
+    <fa-icon [style.fontColor]="dicionario.corIcone" 
       class="pull-left"
       aria-hidden="true"
       [icon]="iconeDocumento"
       size="lg"
     ></fa-icon>
-    <h4>{{ palavraModal.texto}}</h4>
-    <fa-icon
+    <h4 [style.fontColor]="dicionario.corTitulo" >{{ palavraModal.texto}}</h4>
+    <fa-icon [style.fontColor]="dicionario.corIcone" 
       class="pull-right"
       aria-hidden="true"
       [icon]="iconeFechar"
@@ -68,11 +76,11 @@
       size="lg"
     ></fa-icon>
   </div>
-  <div class="modal-body">
+  <div  class="modal-body">
     {{ palavraModal.definicao_extra}}
   </div>
   <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
-    <button class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
+    <button [style.backgroundColor]="dicionario.corBotao" [style.fontColor]="dicionario.corBotaoFonte" class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
     </button>
 </div>
  

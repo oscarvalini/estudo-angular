@@ -7,6 +7,7 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { Dicionario } from '../dicionario-cadastro/dicionario.inteface';
 import { Palavra } from '../dicionario-cadastro/palavra.interface';
 import { DicionarioService } from '../dicionario.service';
 
@@ -22,38 +23,45 @@ export class DicionarioConsultaComponent implements OnInit {
   iconeFechar = faXmark;
   palavras: Palavra[] | undefined = [];
   codigoDicionario: Number = 1;
-  nomeDicionario: String | undefined = '';
   palavraModal!: Palavra;
-  letrasNoDicionario : Set<String> = new Set();
+  letrasNoDicionario: Set<String> = new Set();
   letraSelecionada: String = 'Todos';
+dicionario! : Dicionario ;
+
 
   constructor(
     private modalService: BsModalService,
     private dicionarioService: DicionarioService
   ) {}
 
-
-
   ngOnInit(): void {
+    this.dicionario = this.dicionarioService.buscaDicionario(this.codigoDicionario)!;
    
-    this.nomeDicionario = this.dicionarioService.buscaDicionario(
-      this.codigoDicionario
-    )?.nome;
+    this.palavras = this.dicionario?.palavras;
+
+    this.palavras?.forEach((p) =>
+      this.letrasNoDicionario.add(p.texto.charAt(0))
+    );
+  }
+
+  public filtrarPorLetra(letra: String) {
+    this.palavras = this.dicionarioService.buscaPorLetra(
+      this.codigoDicionario,
+      letra
+    );
+    this.letraSelecionada = letra;
+  }
+
+  public desfazerFiltro(): void {
     this.palavras = this.dicionarioService.buscaPalavras(
       this.codigoDicionario
     )?.palavras;
-
-    this.palavras?.forEach(p => this.letrasNoDicionario.add(p.texto.charAt(0)))
-    
+    this.letraSelecionada = 'Todos';
   }
 
- public filtrarPorLetra(
-    letra: String,
-  
-  ){
-    this.palavras = this.dicionarioService.buscaPorLetra(this.codigoDicionario, letra)
+  public letraEstaSelecionada(letra: String) {
+    return this.letraSelecionada == letra;
   }
-
 
   public abrirModalDefinicaoExtra(
     template: TemplateRef<any>,
