@@ -7,6 +7,8 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { Palavra } from '../dicionario-cadastro/palavra.interface';
+import { DicionarioService } from '../dicionario.service';
 
 @Component({
   selector: 'app-dicionario-consulta',
@@ -15,42 +17,69 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 })
 export class DicionarioConsultaComponent implements OnInit {
   modalRef!: BsModalRef;
-
   iconeDocumento = faFileLines;
   iconeConfig = faGear;
   iconeFechar = faXmark;
+  palavras: Palavra[] | undefined = [];
+  codigoDicionario: Number = 1;
+  nomeDicionario: String | undefined = '';
+  palavraModal!: Palavra;
+  letrasNoDicionario : Set<String> = new Set();
+  letraSelecionada: String = 'Todos';
 
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService,
+    private dicionarioService: DicionarioService
+  ) {}
 
-  ngOnInit(): void {}
 
-  // abrirModal(template: TemplateRef<any>) {
-  //   this.modalRef = this.modalService.show(template, >)
-  // }
 
-  public openModalWithComponent(template: TemplateRef<any>) {
-    let initialState = {
-      message:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      title: 'I.A.S.',
-    };
+  ngOnInit(): void {
+   
+    this.nomeDicionario = this.dicionarioService.buscaDicionario(
+      this.codigoDicionario
+    )?.nome;
+    this.palavras = this.dicionarioService.buscaPalavras(
+      this.codigoDicionario
+    )?.palavras;
+
+    this.palavras?.forEach(p => this.letrasNoDicionario.add(p.texto.charAt(0)))
+    
+  }
+
+ public filtrarPorLetra(
+    letra: String,
+  
+  ){
+    this.palavras = this.dicionarioService.buscaPorLetra(this.codigoDicionario, letra)
+  }
+
+
+  public abrirModalDefinicaoExtra(
+    template: TemplateRef<any>,
+    palavra: Palavra
+  ) {
+    this.palavraModal = palavra;
+
     let modalConfig = {
       animated: true,
       keyboard: true,
       backdrop: true,
       ignoreBackdropClick: false,
     };
+
     /* this is how we open a Modal Component from another component */
+
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, modalConfig, { class: 'modal-lg', initialState ,
 
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100px',
-      maxWidth:'100vw'
-     
-     })
+      Object.assign(modalConfig, {
+        class: 'modal-lg',
+        width: 'auto',
+        height: 'auto',
+        maxHeight: '100px',
+        maxWidth: '100vw',
+      })
     );
   }
 }
