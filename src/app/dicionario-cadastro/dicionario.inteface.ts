@@ -1,3 +1,5 @@
+import { Palavra } from "./palavra.interface";
+
 export interface Dicionario {
     codigo: Number;
     nome: String;
@@ -5,4 +7,5 @@ export interface Dicionario {
     corBotaoFonte: String;
     corTitulo: String;
     corIcone: String;
+    palavras: Palavra[]
 }

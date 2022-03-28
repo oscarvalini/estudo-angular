@@ -75,6 +75,20 @@ font-weight:600;
   
 }
 
+.modal-detalhes-dicionario{
+    background-color: rgb(216, 20, 101);
+    color: white;
+}
+
+#templateDetalhesDicionario modal-title{
+text-align: left;
+}
+
+
+
+.modal-detalhes-dicionario-botao{
+padding: 20px;
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -83,6 +97,13 @@ table {
 
 .table-item-title {
   font-weight: bolder;
+}
+
+
+.modal-body {
+ 
+    max-height:800px; 
+    overflow-y: auto;
 }
 
 td,
@@ -99,3 +120,7 @@ tr:nth-child(even) {
 }
 
 
+.modalDialog {
+    /*Insira o código debaixo de tudo*/
+    overflow: scroll;
+    }

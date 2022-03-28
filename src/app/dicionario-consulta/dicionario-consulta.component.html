@@ -3,10 +3,12 @@
 
   <div class="dicionary-header">
     <div class="dicionary-header-title">
-      <h5 class="item-destaque" >Dicionário Join HR</h5>
+      <h5 class="item-destaque">Dicionário Join HR</h5>
     </div>
     <div class="dicionary-header-item">
-      <div><fa-icon class="item-destaque" [icon]="iconeConfig" size="lg"></fa-icon></div>
+      <div>
+        <fa-icon class="item-destaque" [icon]="iconeConfig" size="lg"></fa-icon>
+      </div>
     </div>
     <div class="dicionary-header-item">
       <div class="item-destaque">abc</div>
@@ -14,8 +16,7 @@
   </div>
 
   <div class="menu-dicionario">
-
-    <a  href="#home">A</a>
+    <a href="#home">A</a>
     <a href="#news">B</a>
     <a href="#contact">C</a>
     <a href="#contact">D</a>
@@ -29,7 +30,6 @@
     <a href="#contact">L</a>
     <a href="#contact">M</a>
     <a href="#contact">N</a>
-    <a href="#contact">N</a>
     <a href="#contact">O</a>
     <a href="#contact">P</a>
     <a href="#contact">Q</a>
@@ -42,7 +42,7 @@
     <a href="#contact">X</a>
     <a href="#contact">Y</a>
     <a href="#contact">Z</a>
-   
+
     <a class="active" href="#about">Todos</a>
   </div>
 
@@ -52,7 +52,13 @@
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more"><a class="item-destaque" (click)="abrirModal(templateDetalhesDicionario)">Ver mais</a></td>
+            <td class="table-item-see-more">
+              <a
+                class="item-destaque"
+                (click)="openModalWithComponent(templateDetalhesDicionario)"
+                >Ver mais</a
+              >
+            </td>
           </div>
           <div>
             <td class="table-item-description">
@@ -75,7 +81,9 @@
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more"><a class="item-destaque" href="">Ver mais</a></td>
+            <td class="table-item-see-more">
+              <a class="item-destaque" href="">Ver mais</a>
+            </td>
           </div>
           <div>
             <td class="table-item-description">
@@ -98,7 +106,9 @@
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more"><a class="item-destaque" href="">Ver mais</a></td>
+            <td class="table-item-see-more">
+              <a class="item-destaque" href="">Ver mais</a>
+            </td>
           </div>
           <div>
             <td class="table-item-description">
@@ -121,7 +131,9 @@
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span>What is Lorem Ipsum?</span></td>
-            <td class="table-item-see-more"><a class="item-destaque" href="">Ver mais</a></td>
+            <td class="table-item-see-more">
+              <a class="item-destaque" href="">Ver mais</a>
+            </td>
           </div>
           <div>
             <td class="table-item-description">
@@ -143,12 +155,120 @@
   </div>
 </div>
 
-<ng-template #templateDetalhesDicionario>
-  <div class="modal-header">
-      <h4 class="modal-title"> Titulo Modal</h4>
-      <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeFechar"(click)="modalRef?.hide()" size="lg"></fa-icon>
+<ng-template #templateDetalhesDicionario class="modal-lg">
+  <div class="modal-header modal-detalhes-dicionario">
+    <fa-icon
+      class="pull-left"
+      aria-hidden="true"
+      [icon]="iconeDocumento"
+      size="lg"
+    ></fa-icon>
+    <h4>I.A.S.</h4>
+    <fa-icon
+      class="pull-right"
+      aria-hidden="true"
+      [icon]="iconeFechar"
+      (click)="modalRef?.hide()"
+      size="lg"
+    ></fa-icon>
   </div>
   <div class="modal-body">
-    akjfkjaklfjklajwfkl
+    <p>
+      Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+      roots in a piece of classical Latin literature from 45 BC, making it over
+      2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+      College in Virginia, looked up one of the more obscure Latin words,
+      consectetur, from a Lorem Ipsum passage, and going through the cites of
+      the word in classical literature, discovered the undoubtable source. Lorem
+      Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
+      Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
+      book is a treatise on the theory of ethics, very popular during the
+      Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+      amet..", comes from a line in section 1.10.32.
+    </p>
+    <p>
+      It is a long established fact that a reader will be distracted by the
+      readable content of a page when looking at its layout. The point of using
+      Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+      as opposed to using 'Content here, content here', making it look like
+      readable English. Many desktop publishing packages and web page editors
+      now use Lorem Ipsum as their default model text, and a search for 'lorem
+      ipsum' will uncover many web sites still in their infancy. Various
+      versions have evolved over the years, sometimes by accident, sometimes on
+      purpose (injected humour and the like).
+    </p>
+    <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
+      <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
+      <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
+      <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
+      <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
+      <p>
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of using
+        Lorem Ipsum is that it has a more-or-less normal distribution of letters,
+        as opposed to using 'Content here, content here', making it look like
+        readable English. Many desktop publishing packages and web page editors
+        now use Lorem Ipsum as their default model text, and a search for 'lorem
+        ipsum' will uncover many web sites still in their infancy. Various
+        versions have evolved over the years, sometimes by accident, sometimes on
+        purpose (injected humour and the like).
+      </p>
   </div>
+
+
+  <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
+    <button class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
+    </button>
+</div>
+ 
 </ng-template>
