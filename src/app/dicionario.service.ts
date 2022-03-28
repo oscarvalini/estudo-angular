@@ -9,6 +9,14 @@ export class DicionarioService {
 
   constructor() { }
 
+  atualiza(dicionario: Dicionario) {
+    console.log('Atualizando Dicionário')
+  }
+
+  adiciona(dicionario: Dicionario) {
+    console.log('Adicionando Dicionário');
+  }
+
   buscaTodos(): Dicionario[] {
     return [
       { codigo: 1, nome: 'Teste', corTitulo: '#2233CC', corBotao: '#CCCCCC', corBotaoFonte: '#000000', corIcone: '#000000' } as Dicionario,

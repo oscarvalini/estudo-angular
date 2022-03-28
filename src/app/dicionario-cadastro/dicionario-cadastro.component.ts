@@ -26,7 +26,7 @@ export class DicionarioCadastroComponent implements OnInit {
   dicionarioForm = this.formBuilder.group({
     codigo: [''],
     nome: ['', Validators.required],
-    corBotao: ['#CCCCCC', Validators.required],
+    corBotao: ['#000000', Validators.required],
     corBotaoFonte: ['#FFFFFF', Validators.required],
     corTitulo: ['#FFFFFF', Validators.required],
     corIcone: ['#FFFFFF', Validators.required]
@@ -47,11 +47,27 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   adicionarDicionario() {
-    if(this.dicionarioForm.valid) {
-      const dicionario = this.dicionarioForm.getRawValue();
-      //this.dicionarioService.adiciona(dicionario);
-      this.dicionarioForm.reset();
-    } 
+    if(!this.dicionarioForm.valid) {
+      return;
+    }
+
+    const dicionario: Dicionario = this.dicionarioForm.getRawValue();
+
+    if(!!dicionario.codigo) {
+      this.dicionarioService.atualiza(dicionario);
+    } else {
+      this.dicionarioService.adiciona(dicionario);
+    }
+    this.limpaFormulario();
+  }
+
+  limpaFormulario() {
+    this.dicionarioForm.reset({
+      corBotao: '#000000',
+      corBotaoFonte: '#FFFFFF',
+      corTitulo: '#FFFFFF',
+      corIcone: '#FFFFFF'
+    });
   }
 
   excluirDicionario(codigoDicionario: Number) {
