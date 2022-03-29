@@ -24,9 +24,6 @@
   <div class="menu-dicionario">
     <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)" [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
 
-    <a (click)="desfazerFiltro()" [ngClass]="{'active' : letraEstaSelecionada('Todos')}">Todos</a>
-
-
   </div>
 
   <div class="dicionary">

@@ -1,17 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
-import {
-  faCross,
-  faFile,
-  faGear,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { Dicionario } from '../dicionario-cadastro/dicionario.inteface';
 import { Palavra } from '../dicionario-cadastro/palavra.interface';
 import { DicionarioService } from '../dicionario.service';
-
 
 @Component({
   selector: 'app-dicionario-consulta',
@@ -28,8 +22,7 @@ export class DicionarioConsultaComponent implements OnInit {
   palavraModal!: Palavra;
   letrasNoDicionario: Set<String> = new Set();
   letraSelecionada: String = 'Todos';
-dicionario! : Dicionario ;
-
+  dicionario!: Dicionario;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,33 +31,39 @@ dicionario! : Dicionario ;
   ) {}
 
   ngOnInit(): void {
-
-    this.route.params.subscribe(params => {    
-      this.codigoDicionario = (params['id']);
+    this.route.params.subscribe((params) => {
+      this.codigoDicionario = params['id'];
     });
 
-    this.dicionario = this.dicionarioService.buscaDicionario(this.codigoDicionario)!;
-   
+    this.dicionario = this.dicionarioService.buscaDicionario(
+      this.codigoDicionario
+    )!;
+
     this.palavras = this.dicionario?.palavras;
 
     this.palavras?.forEach((p) =>
-      this.letrasNoDicionario.add(p.texto.charAt(0))
+      this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase())
     );
+
+    if (this.letrasNoDicionario.size > 1) {
+      this.letrasNoDicionario.add('Todos');
+    }
   }
 
   public filtrarPorLetra(letra: String) {
-    this.palavras = this.dicionarioService.buscaPorLetra(
-      this.codigoDicionario,
-      letra
-    );
-    this.letraSelecionada = letra;
-  }
+    if (letra == 'Todos') {
+      this.palavras = this.dicionarioService.buscaDicionario(
+        this.codigoDicionario
+      )?.palavras;
 
-  public desfazerFiltro(): void {
-    this.palavras = this.dicionarioService.buscaDicionario(
-      this.codigoDicionario
-    )?.palavras;
-    this.letraSelecionada = 'Todos';
+      this.letraSelecionada = 'Todos';
+    } else {
+      this.palavras = this.dicionarioService.buscaPorLetra(
+        this.codigoDicionario,
+        letra
+      );
+      this.letraSelecionada = letra;
+    }
   }
 
   public letraEstaSelecionada(letra: String) {
