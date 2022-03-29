@@ -156,4 +156,25 @@ export class DicionarioService {
     const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
     this.dicionarios.splice(indice, 1);
   }
+
+  adicionaPalavra(codigoDicionario: number, palavra: Palavra) {
+    const dicionario = this.dicionarios.find(dic => dic.codigo == codigoDicionario);
+    if(!dicionario) {
+      return;
+    }
+    dicionario.palavras.push(palavra);
+  }
+
+  atualizaPalavra(codigoDicionario: number, palavraAtualizar: Palavra) {
+    const dicionario = this.dicionarios.find(dic => dic.codigo == codigoDicionario);
+    const indice = dicionario?.palavras.findIndex(pal => pal.codigo == palavraAtualizar.codigo);
+    if(!indice) {
+      return;
+    }
+    if(!dicionario) {
+      return;
+    }
+    dicionario.palavras[indice] = palavraAtualizar;
+
+  }
 }
