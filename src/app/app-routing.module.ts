@@ -12,6 +12,7 @@ const routes: Routes = [
   },
   { path: 'dicionarios', component: DicionarioCadastroComponent },
   { path: 'dicionarios/:id', component: DicionarioConsultaComponent },
+  { path: 'dicionarios/:id/palavras', component: DicionarioTextoComponent},
   { path: '**', redirectTo: 'dicionarios' }
 ];
 

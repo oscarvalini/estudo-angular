@@ -61,7 +61,7 @@ dicionario! : Dicionario ;
   }
 
   public desfazerFiltro(): void {
-    this.palavras = this.dicionarioService.buscaPalavras(
+    this.palavras = this.dicionarioService.buscaDicionario(
       this.codigoDicionario
     )?.palavras;
     this.letraSelecionada = 'Todos';
