@@ -118,12 +118,14 @@ export class DicionarioService {
   constructor() {}
 
   atualiza(dicionarioAtualizar: Dicionario): Boolean {
+    dicionarioAtualizar.palavras = this.palavrasDic;
     const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
     this.dicionarios[indice] = dicionarioAtualizar;
     return true;
   }
 
   adiciona(dicionario: Dicionario): Dicionario {
+    dicionario.palavras = this.palavrasDic;
     dicionario.codigo = ++this.dicionarioSequencia;
     this.dicionarios.push(dicionario);
     return dicionario;
@@ -134,7 +136,11 @@ export class DicionarioService {
   }
 
   buscaTodos(): Dicionario[] {
-    return this.dicionarios;
+    return this.dicionarios.sort((a, b) => {
+      if(a.nome < b.nome) { return -1; }
+      if(a.nome > b.nome) { return 1; }
+      return 0;
+    });
   }
 
   buscaPorLetra(
