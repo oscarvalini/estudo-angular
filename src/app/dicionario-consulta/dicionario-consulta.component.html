@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="dicionary-header-item">
-      <div [style.color]="dicionario.corTitulo">abc</div>
+      <div [style.color]="dicionario.corTitulo" >abc</div>
     </div>
   </div>
 
@@ -32,7 +32,7 @@
     
         <div class="dicionary-body">
           <div class="table-data">
-            <td class="table-item-title"><span  [style.color]="dicionario.corTitulo" >{{palavra.texto}}</span></td>
+            <td class="table-item-title"><span  [style.color]="dicionario.corTitulo" routerLink="/palavra/{{palavra.codigo}}"  >{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
               <a
               [style.color]="dicionario.corTitulo"

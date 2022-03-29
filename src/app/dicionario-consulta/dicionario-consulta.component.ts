@@ -52,7 +52,7 @@ export class DicionarioConsultaComponent implements OnInit {
 
   public filtrarPorLetra(letra: String) {
     if (letra == 'Todos') {
-      this.palavras = this.dicionarioService.buscaPalavras(
+      this.palavras = this.dicionarioService.buscaDicionario(
         this.codigoDicionario
       )?.palavras;
 
