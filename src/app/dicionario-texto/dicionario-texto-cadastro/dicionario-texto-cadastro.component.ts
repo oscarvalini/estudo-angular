@@ -57,9 +57,6 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     )!;
   }
 
-  abrePalavraForm(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-  }
 
   onSubmit() {
     this.submitted = true;

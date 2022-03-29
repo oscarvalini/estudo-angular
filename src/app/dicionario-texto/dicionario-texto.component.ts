@@ -53,7 +53,7 @@ export class DicionarioTextoComponent implements OnInit {
     });
   }
 
-  abreDicionarioForm(template: TemplateRef<any>) {
+  abrePalavraForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 

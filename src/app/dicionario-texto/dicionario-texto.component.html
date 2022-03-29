@@ -3,7 +3,7 @@
         <section class="titulo">
             <h1 class="titulo--nome">{{dicionario.nome}}</h1>
             <fa-icon class="botao-adicionar-palavra" [icon]="iconeAdicionar" size="lg"
-                (click)="abreDicionarioForm(template)"></fa-icon>
+                (click)="abrePalavraForm(template)"></fa-icon>
         </section>
         <section>
             <fa-icon [style.color]= "'#73b453'" [icon]="iconeAjuda" size="lg"></fa-icon>
@@ -28,11 +28,5 @@
 </main>
 
 <ng-template #template>
-    <div class="modal-header">
-        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
-        <h4 class="modal-title"> Dicionário</h4>
-        <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
-    </div>
-    <div class="modal-body">
-    </div>
+    <app-dicionario-texto-cadastro></app-dicionario-texto-cadastro>
 </ng-template>
