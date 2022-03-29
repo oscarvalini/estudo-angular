@@ -17,63 +17,43 @@ export class DicionarioConsultaComponent implements OnInit {
   iconeDocumento = faFileLines;
   iconeConfig = faGear;
   iconeFechar = faXmark;
-  palavras: Palavra[] | undefined = [];
+  palavras: Palavra[] = [];
   palavraModal!: Palavra;
-  letrasNoDicionario: Set<String> = new Set();
-  letraSelecionada: String = 'Todos';
+  letrasNoDicionario: Set<string> = new Set();
+  letraSelecionada: string = 'Todos';
   dicionario!: Dicionario;
-  idDicionario: Number = 1;
+  idDicionario: number = 1;
 
   constructor(
     private dicionarioService: DicionarioService,
     private route: ActivatedRoute,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
-    //  this.dicionario = { 
-    //     corBotao : '#FFFFFF',
-    //     corBotaoFonte : '#FFFFFF',
-    //     corIcone : '#FFFFFF',
-    //     corTitulo : '#FFFFFF'
-    //  } as Dicionario;
-
     this.idDicionario = this.route.snapshot.params['id'];
 
-    this.dicionarioService
-      .buscaDicionario(this.idDicionario)
-      .subscribe((dic) => {
-        this.dicionario = dic;
-
+    this.dicionarioService.buscaDicionario(this.idDicionario).subscribe((dicionario) => {
+        this.dicionario = dicionario;
         console.log(this.dicionario);
+    });
 
-        this.palavras = this.dicionario?.palavras;
-
-        this.palavras?.forEach((p) =>
-          this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase())
-        );
-
-        if (this.letrasNoDicionario.size > 1) {
-          this.letrasNoDicionario.add('Todos');
-        }
-      });
+    this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => {
+      this.palavras = palavras;
+      console.log(palavras);
+    })
   }
 
-  public filtrarPorLetra(letra: String) {
+  public filtrarPorLetra(letra: string) {
+
     if (letra == 'Todos') {
-      this.dicionarioService
-        .buscaDicionario(this.idDicionario)
-        .subscribe((dic) => (this.dicionario = dic));
-
-      this.palavras = this.dicionario.palavras;
-
-      this.letraSelecionada = 'Todos';
+      this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => { 
+        this.palavras = palavras;
+        this.letraSelecionada = 'Todos';
+      })
     } else {
-      this.palavras = this.dicionarioService.buscaPorLetra(
-        this.idDicionario,
-        letra
-      );
+      this.palavras = this.palavras.filter(palavras => palavras.texto.charAt(0) == letra);
       this.letraSelecionada = letra;
     }
   }

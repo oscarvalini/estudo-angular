@@ -16,7 +16,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { DicionarioTextoCadastroComponent } from './dicionario-texto/dicionario-texto-cadastro/dicionario-texto-cadastro.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { DataService } from './dicionario.repository';
+import { DataService } from './dicionario.dataservice';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(DataService),
+    HttpClientInMemoryWebApiModule.forRoot(DataService, {delay: 100}),
     EditorModule,
     BrowserModule,
     AppRoutingModule,

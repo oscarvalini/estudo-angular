@@ -42,7 +42,7 @@ export class DicionarioCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dicionarioService.buscaTodos().subscribe(dic => this.dicionarios  = dic);
+    this.dicionarioService.buscaDicionarios().subscribe(dic => this.dicionarios  = dic);
   }
 
   abreDicionarioForm(template: TemplateRef<any>) {
@@ -58,7 +58,7 @@ export class DicionarioCadastroComponent implements OnInit {
 
     const dicionario: Dicionario = this.dicionarioForm.getRawValue();
 
-    if(dicionario.codigo && dicionario.codigo > 0) {
+    if(dicionario.id && dicionario.id > 0) {
 
       this.atualizaDicionario(dicionario);
     } else {
@@ -70,18 +70,16 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   adicionaDicionario(dicionario: Dicionario) {
-    dicionario.palavras = [];
     console.log(dicionario)
-    this.dicionarioService.adiciona(dicionario).subscribe(response => {
+    this.dicionarioService.criaDicionario(dicionario).subscribe(response => {
       console.log(response)
       this.buscaDicionarios();
     });
-    
   }
 
   atualizaDicionario(dicionarioAtualizar: Dicionario) {
     console.log(dicionarioAtualizar)
-    this.dicionarioService.atualiza(dicionarioAtualizar).subscribe(response => {
+    this.dicionarioService.atualizaDicionario(dicionarioAtualizar).subscribe(response => {
       console.log(response)
       this.buscaDicionarios();
     });
@@ -93,14 +91,14 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   excluiDicionario(idDicionario: Number) {
-    this.dicionarioService.exclui(idDicionario).subscribe(response => {
+    this.dicionarioService.excluiDicionario(idDicionario).subscribe(response => {
       console.log(response)
       this.buscaDicionarios();
     });
   }
 
   buscaDicionarios() {
-    this.dicionarioService.buscaTodos().subscribe(dic =>  this.dicionarios = dic);
+    this.dicionarioService.buscaDicionarios().subscribe(dic =>  this.dicionarios = dic);
     console.log(this.dicionarios);
   }
 

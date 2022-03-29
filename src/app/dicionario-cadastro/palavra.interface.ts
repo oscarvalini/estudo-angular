@@ -1,10 +1,7 @@
 export interface Palavra {
-    id?: Number,
-    codigo: Number;
-    codigo_dicionario?: Number
-    texto: String;
-    definicao: String;
-    definicao_extra: String;
-    
-    
+    id?: number,
+    idDicionario: number
+    texto: string;
+    definicao: string;
+    definicao_extra?: string; 
 }

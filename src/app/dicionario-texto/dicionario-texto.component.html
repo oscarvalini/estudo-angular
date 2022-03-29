@@ -16,11 +16,11 @@
     </div>
 
     <ul class="lista-palavras">
-        <li *ngFor="let palavra of dicionario.palavras" class="palavra">
+        <li *ngFor="let palavra of palavras" class="palavra">
             <span class="palavra-nome">{{palavra.texto}}</span>
             <fa-icon class="palavra-acao" [icon]="iconeEditar" size="lg" (click)="editaPalavra(palavra)"></fa-icon>
             <fa-icon class="palavra-acao" [icon]="iconeExcluir" size="lg"
-                (click)="excluiPalavra(palavra.codigo)"></fa-icon>
+                (click)="excluiPalavra(palavra.id!)"></fa-icon>
         </li>
     </ul>
 </main>

@@ -58,7 +58,7 @@ export class DicionarioTextoCadastroComponent implements OnInit {
 
     const palavra: Palavra = this.palavraForm.getRawValue();
 
-    if (palavra.codigo && palavra.codigo > 0) {
+    if (palavra.id && palavra.id > 0) {
       // this.atualizaPalavra(palavra);
     } else {
       // this.adicionaPalavra(palavra);
