@@ -22,8 +22,11 @@ export class DicionarioTextoComponent implements OnInit {
   iconeEditar = faPencil;
 
   modalRef?: BsModalRef;
+  @ViewChild('template') elementoModalRef!: TemplateRef<any>
 
   dicionario!: Dicionario;
+
+  palavraSelecionada?: Palavra;
 
   dicionarioForm = this.formBuilder.group({
     codigo: [],
@@ -63,6 +66,11 @@ export class DicionarioTextoComponent implements OnInit {
 
   abrePalavraForm(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  editaPalavra(palavra: Palavra) {
+    this.modalService.show(this.elementoModalRef);
+    this.palavraSelecionada = palavra;
   }
 
   adicionaPalavra(palavra: Palavra) {

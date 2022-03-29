@@ -18,13 +18,11 @@
 
   <div class="menu-dicionario">
     <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)" [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
-
   </div>
 
   <div class="dicionary">
     <table>
         <tr *ngFor="let palavra of palavras" class="dicionario">
-    
         <div class="dicionary-body">
           <div class="table-data">
             <td class="table-item-title"><span [ngStyle]="{'color' : dicionario.corTitulo }" routerLink="/palavra/{{palavra.codigo}}"  >{{palavra.texto}}</span></td>
@@ -43,10 +41,6 @@
           </div>
         </div>
       </tr>
-
-      
-       
-     
     </table>
   </div>
 </div>
