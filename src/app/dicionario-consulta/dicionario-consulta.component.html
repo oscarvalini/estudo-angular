@@ -1,23 +1,18 @@
 <div class="container dictionary-div">
-  <div class="dicionary-header-color" [style.backgroundColor]="dicionario.corIcone" ></div>
-
-  <!-- ] corTitulo: '#2233CC',
-  corBotao: '#CCCCCC',
-  corBotaoFonte: '#000000',
-  corIcone: '#000000', -->
+  <div class="dicionary-header-color" [ngStyle]="{'background-color': dicionario.corIcone}" ></div>
 
   
   <div class="dicionary-header">
     <div class="dicionary-header-title">
-      <h5 [style.color]="dicionario.corTitulo">{{dicionario.nome}}</h5>
+      <h5 [ngStyle]="{'color' : dicionario.corTitulo }">{{dicionario.nome}}</h5>
     </div>
     <div class="dicionary-header-item">
       <div>
-        <fa-icon [style.color]="dicionario.corIcone" [icon]="iconeConfig" size="lg"></fa-icon>
+        <fa-icon [ngStyle]="{'color' : dicionario.corIcone }" [icon]="iconeConfig" size="lg"></fa-icon>
       </div>
     </div>
     <div class="dicionary-header-item">
-      <div [style.color]="dicionario.corTitulo" >abc</div>
+      <div [ngStyle]="{'color' : dicionario.corTitulo }" >abc</div>
     </div>
   </div>
 
@@ -32,10 +27,10 @@
     
         <div class="dicionary-body">
           <div class="table-data">
-            <td class="table-item-title"><span  [style.color]="dicionario.corTitulo" routerLink="/palavra/{{palavra.codigo}}"  >{{palavra.texto}}</span></td>
+            <td class="table-item-title"><span [ngStyle]="{'color' : dicionario.corTitulo }" routerLink="/palavra/{{palavra.codigo}}"  >{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
               <a
-              [style.color]="dicionario.corTitulo"
+                [ngStyle]="{'color' : dicionario.corTitulo }"
                 (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)"
                 >Ver mais</a
               >

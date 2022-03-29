@@ -37,7 +37,7 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   submitted = false;
   
   dicionario!: Dicionario;
-  codigoDicionario: Number = 1;
+  idDicionario: Number = 1;
 
 
   constructor(   
@@ -49,12 +49,11 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe((params) => {
-      this.codigoDicionario = params['id'];
+      this.idDicionario = params['id'];
     });
 
-    this.dicionario = this.dicionarioService.buscaDicionario(
-      this.codigoDicionario
-    )!;
+    this.dicionarioService.buscaDicionario( this.idDicionario ).subscribe(dic =>  this.dicionario  = dic);
+
   }
 
   fecharFormulario(template: TemplateRef<any>) {

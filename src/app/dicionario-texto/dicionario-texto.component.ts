@@ -44,13 +44,21 @@ export class DicionarioTextoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {    
-      const dicionarioEncontrado = this.dicionarioService.buscaDicionario(params['id']);
-      if(!dicionarioEncontrado) {
-        return;
-      }
-      this.dicionario = dicionarioEncontrado;
-    });
+    this.route.params.subscribe(params => {  
+      
+    
+      this.dicionarioService.buscaDicionario(params['id']).subscribe(dicionarioEncontrado => {
+
+        if(!dicionarioEncontrado) {
+          return;
+        }
+        this.dicionario = dicionarioEncontrado;
+      });
+      });
+
+     
+      // const dicionarioEncontrado = this.dicionarioService.buscaDicionario(params['id']);
+     
   }
 
   abrePalavraForm(template: TemplateRef<any>) {
@@ -69,13 +77,16 @@ export class DicionarioTextoComponent implements OnInit {
     this.buscaDicionario();
   }
 
-  excluiPalavra(codigoDicionario: Number) {
-    this.dicionarioService.exclui(codigoDicionario);
+  excluiPalavra(idDicionario: Number) {
+    this.dicionarioService.exclui(idDicionario);
     this.buscaDicionario();
   }
 
   buscaDicionario() {
-    this.dicionario = this.dicionarioService.buscaDicionario(this.dicionario.codigo)!;
+    this.dicionarioService.buscaDicionario( this.dicionario.id! ).subscribe(dic =>  this.dicionario  = dic);
+
+
+    // this.dicionario = this.dicionarioService.buscaDicionario(this.dicionario.codigo)!;
     console.log(this.dicionario);
   }
 
