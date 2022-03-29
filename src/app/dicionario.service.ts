@@ -1,11 +1,20 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
 import { Dicionario } from './dicionario-cadastro/dicionario.inteface';
 import { Palavra } from './dicionario-cadastro/palavra.interface';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class DicionarioService {
+
+
+
+  
+
 
   dicionarioSequencia = 4;
 
@@ -115,7 +124,47 @@ export class DicionarioService {
     } as Dicionario,
   ];
 
-  constructor() {}
+  private dicionariosUrl = 'api/dicionarios/';
+  constructor(private http: HttpClient) { }
+
+
+  //===============================================================
+  
+  buscaTodos(): Observable<Dicionario[]> {
+    return this.http.get<Dicionario[]>(this.dicionariosUrl).pipe(
+      map(results => results.sort((a, b) => {
+        if(a.nome < b.nome) { return -1; }
+        if(a.nome > b.nome) { return 1; }
+        return 0;
+      })),
+      retry(2),
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  adiciona(dicionario: Dicionario): Observable<Dicionario> {
+    
+    return this.http.post<Dicionario>(this.dicionariosUrl, dicionario).pipe(
+     
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    )
+  }
+
+  editDicionario(dicionario: Dicionario): Observable<any> {
+    return this.http.put(this.dicionariosUrl + dicionario.codigo, dicionario);
+  }
+
+  deleteDicionario(id: number): Observable<any> {
+    return this.http.delete(this.dicionariosUrl + id);
+  }
+
+  //===============================================================
 
   atualiza(dicionarioAtualizar: Dicionario): Boolean {
     dicionarioAtualizar.palavras = this.palavrasDic;
@@ -124,23 +173,15 @@ export class DicionarioService {
     return true;
   }
 
-  adiciona(dicionario: Dicionario): Dicionario {
-    dicionario.palavras = this.palavrasDic;
-    dicionario.codigo = ++this.dicionarioSequencia;
-    this.dicionarios.push(dicionario);
-    return dicionario;
-  }
+  // adiciona(dicionario: Dicionario): Dicionario {
+    
+  //   dicionario.codigo = ++this.dicionarioSequencia;
+  //   this.dicionarios.push(dicionario);
+  //   return dicionario;
+  // }
 
   buscaDicionario(codigoDicionario: Number ): Dicionario | undefined{
     return  this.dicionarios.find(d => d.codigo == codigoDicionario)
-  }
-
-  buscaTodos(): Dicionario[] {
-    return this.dicionarios.sort((a, b) => {
-      if(a.nome < b.nome) { return -1; }
-      if(a.nome > b.nome) { return 1; }
-      return 0;
-    });
   }
 
   buscaPorLetra(

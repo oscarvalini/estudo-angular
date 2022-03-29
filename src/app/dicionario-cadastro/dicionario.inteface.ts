@@ -1,6 +1,7 @@
 import { Palavra } from "./palavra.interface";
 
 export interface Dicionario {
+    id?: Number,
     codigo: number;
     nome: string;
     corBotao: string;

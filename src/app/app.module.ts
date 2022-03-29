@@ -15,6 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DicionarioTextoCadastroComponent } from './dicionario-texto/dicionario-texto-cadastro/dicionario-texto-cadastro.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DataService } from './dicionario.repository';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     DicionarioTextoCadastroComponent
   ],
   imports: [
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(DataService),
     EditorModule,
     BrowserModule,
     AppRoutingModule,
