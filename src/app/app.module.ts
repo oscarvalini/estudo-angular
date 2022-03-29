@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DicionarioTextoCadastroComponent } from './dicionario-texto/dicionario-texto-cadastro/dicionario-texto-cadastro.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -26,14 +27,14 @@ import { DicionarioTextoCadastroComponent } from './dicionario-texto/dicionario-
     DicionarioTextoCadastroComponent
   ],
   imports: [
-  
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
