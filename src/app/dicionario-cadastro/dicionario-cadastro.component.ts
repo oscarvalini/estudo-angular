@@ -41,7 +41,7 @@ export class DicionarioCadastroComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dicionarios = [...this.dicionarioService.buscaTodos()];
+    this.dicionarioService.buscaTodos().subscribe(dic => this.dicionarios  = dic);
   }
 
   abreDicionarioForm(template: TemplateRef<any>) {
@@ -68,8 +68,11 @@ export class DicionarioCadastroComponent implements OnInit {
 
   adicionaDicionario(dicionario: Dicionario) {
     console.log(dicionario)
-    this.dicionarioService.adiciona(dicionario);
-    this.buscaDicionarios();
+    this.dicionarioService.adiciona(dicionario).subscribe(response => {
+      console.log(response)
+      this.buscaDicionarios();
+    });
+    
   }
 
   atualizaDicionario(dicionarioAtualizar: Dicionario) {
@@ -89,7 +92,7 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   buscaDicionarios() {
-    this.dicionarios = this.dicionarioService.buscaTodos();
+    this.dicionarioService.buscaTodos().subscribe(dic =>  this.dicionarios = dic);
     console.log(this.dicionarios);
   }
 
