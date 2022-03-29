@@ -24,6 +24,7 @@ export class DicionarioCadastroComponent implements OnInit {
   dicionarios: Dicionario[] = [];
 
   dicionarioForm = this.formBuilder.group({
+    id: [],
     codigo: [],
     nome: ['', Validators.required],
     corBotao: ['#000000', Validators.required],
@@ -58,10 +59,12 @@ export class DicionarioCadastroComponent implements OnInit {
     const dicionario: Dicionario = this.dicionarioForm.getRawValue();
 
     if(dicionario.codigo && dicionario.codigo > 0) {
+
       this.atualizaDicionario(dicionario);
     } else {
       this.adicionaDicionario(dicionario);
     }
+
     this.limpaFormulario();
     this.modalService.hide();
   }
@@ -77,8 +80,10 @@ export class DicionarioCadastroComponent implements OnInit {
 
   atualizaDicionario(dicionarioAtualizar: Dicionario) {
     console.log(dicionarioAtualizar)
-    this.dicionarioService.atualiza(dicionarioAtualizar);
-    this.buscaDicionarios();
+    this.dicionarioService.atualiza(dicionarioAtualizar).subscribe(response => {
+      console.log(response)
+      this.buscaDicionarios();
+    });
   }
 
   editaDicionario(template: TemplateRef<any>, dicionarioEditar: Dicionario) {
@@ -86,9 +91,11 @@ export class DicionarioCadastroComponent implements OnInit {
     this.modalRef = this.modalService.show(template)
   }
 
-  excluiDicionario(codigoDicionario: Number) {
-    this.dicionarioService.exclui(codigoDicionario);
-    this.buscaDicionarios();
+  excluiDicionario(idDicionario: Number) {
+    this.dicionarioService.exclui(idDicionario).subscribe(response => {
+      console.log(response)
+      this.buscaDicionarios();
+    });
   }
 
   buscaDicionarios() {
