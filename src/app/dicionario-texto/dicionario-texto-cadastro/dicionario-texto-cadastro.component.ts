@@ -57,6 +57,13 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     )!;
   }
 
+  fecharFormulario(template: TemplateRef<any>) {
+    this.modalService.hide();
+  }
+
+ 
+
+
 
   onSubmit() {
     this.submitted = true;

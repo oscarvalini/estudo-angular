@@ -3,7 +3,7 @@
         <section class="titulo">
             <h1 class="titulo--nome">{{dicionario.nome}}</h1>
             <fa-icon class="botao-adicionar-palavra" [icon]="iconeAdicionar" size="lg"
-                (click)="abrePalavraForm(template)"></fa-icon>
+                (click)="abrePalavraForm(templateEdicaoPalavra)"></fa-icon>
         </section>
         <section>
             <fa-icon [style.color]= "'#73b453'" [icon]="iconeAjuda" size="lg"></fa-icon>
@@ -23,10 +23,23 @@
                 (click)="excluiDicionario(palavra.codigo)"></fa-icon> -->
         </li>
     </ul>
-    <fa-icon [style.color]= "'#253c89'"  class="botao-adicionar-palavra" [icon]="iconeAdicionar" size="lg" (click)="abrePalavraForm(template)">
+    <fa-icon [style.color]= "'#253c89'"  class="botao-adicionar-palavra" [icon]="iconeAdicionar" size="lg" (click)="abrePalavraForm(templateEdicaoPalavra)">
     </fa-icon>
 </main>
 
-<ng-template #template>
+<ng-template #templateEdicaoPalavra>
+
+    <div class="modal-header">
+        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
+        <h4 class="modal-title">Editar palavra</h4>
+        <fa-icon
+          class="pull-right"
+          aria-hidden="true"
+          [icon]="iconeExcluir"
+          (click)="modalRef?.hide()"
+          size="lg"
+        ></fa-icon>
+      </div>
+      
     <app-dicionario-texto-cadastro></app-dicionario-texto-cadastro>
 </ng-template>

@@ -105,7 +105,11 @@ table {
     max-height:800px; 
     overflow-y: auto;
 }
-
+.modalDialog {
+  /*Insira o código debaixo de tudo*/
+  overflow: scroll;
+  }
+  
 td,
 th {
   
@@ -120,7 +124,3 @@ tr:nth-child(even) {
 }
 
 
-.modalDialog {
-    /*Insira o código debaixo de tudo*/
-    overflow: scroll;
-    }
