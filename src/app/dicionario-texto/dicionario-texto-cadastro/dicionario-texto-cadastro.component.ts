@@ -3,6 +3,9 @@ import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, fa
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Palavra } from 'src/app/dicionario-cadastro/palavra.interface';
+import { Dicionario } from 'src/app/dicionario-cadastro/dicionario.inteface';
+import { DicionarioService } from 'src/app/dicionario.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dicionario-texto-cadastro',
@@ -32,14 +35,26 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   })
 
   submitted = false;
-
+  
+  dicionario!: Dicionario;
+  codigoDicionario: Number = 1;
 
 
   constructor(   
+    private dicionarioService: DicionarioService,
+    private route: ActivatedRoute,
     private modalService: BsModalService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.route.params.subscribe((params) => {
+      this.codigoDicionario = params['id'];
+    });
+
+    this.dicionario = this.dicionarioService.buscaDicionario(
+      this.codigoDicionario
+    )!;
   }
 
   abrePalavraForm(template: TemplateRef<any>) {

@@ -131,8 +131,8 @@ export class DicionarioService {
     return dicionario;
   }
 
-  buscaDicionario(codigoDicionario: Number ): Dicionario | undefined{
-    return  this.dicionarios.find(d => d.codigo == codigoDicionario)
+  buscaDicionario(codigoDicionario: Number ): Dicionario | undefined {
+    return this.dicionarios.find(d => d.codigo == codigoDicionario)
   }
 
   buscaTodos(): Dicionario[] {
@@ -151,12 +151,30 @@ export class DicionarioService {
       (p) => p.texto.charAt(0) == letraBuscada
     );
   }
-  buscaPalavras(codigoDicionario: Number): Dicionario | undefined {
-    return this.dicionarios.find((d) => d.codigo == codigoDicionario);
-  }
 
   exclui(codigoDicionario: Number) {
     const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
     this.dicionarios.splice(indice, 1);
+  }
+
+  adicionaPalavra(codigoDicionario: number, palavra: Palavra) {
+    const dicionario = this.dicionarios.find(dic => dic.codigo == codigoDicionario);
+    if(!dicionario) {
+      return;
+    }
+    dicionario.palavras.push(palavra);
+  }
+
+  atualizaPalavra(codigoDicionario: number, palavraAtualizar: Palavra) {
+    const dicionario = this.dicionarios.find(dic => dic.codigo == codigoDicionario);
+    const indice = dicionario?.palavras.findIndex(pal => pal.codigo == palavraAtualizar.codigo);
+    if(!indice) {
+      return;
+    }
+    if(!dicionario) {
+      return;
+    }
+    dicionario.palavras[indice] = palavraAtualizar;
+
   }
 }

@@ -18,16 +18,18 @@ export class DicionarioConsultaComponent implements OnInit {
   iconeConfig = faGear;
   iconeFechar = faXmark;
   palavras: Palavra[] | undefined = [];
-  codigoDicionario: Number = 1;
   palavraModal!: Palavra;
   letrasNoDicionario: Set<String> = new Set();
   letraSelecionada: String = 'Todos';
   dicionario!: Dicionario;
+  codigoDicionario: Number = 1;
+
 
   constructor(
+    private dicionarioService: DicionarioService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private dicionarioService: DicionarioService
+   
   ) {}
 
   ngOnInit(): void {

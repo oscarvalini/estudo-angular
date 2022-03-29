@@ -35,6 +35,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ColorPickerModule
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
