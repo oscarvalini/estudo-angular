@@ -70,6 +70,7 @@ export class DicionarioCadastroComponent implements OnInit {
   }
 
   adicionaDicionario(dicionario: Dicionario) {
+    dicionario.palavras = [];
     console.log(dicionario)
     this.dicionarioService.adiciona(dicionario).subscribe(response => {
       console.log(response)

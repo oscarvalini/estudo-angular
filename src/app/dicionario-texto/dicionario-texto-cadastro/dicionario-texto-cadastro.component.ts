@@ -4,6 +4,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Palavra } from 'src/app/dicionario-cadastro/palavra.interface';
 import { DicionarioService } from 'src/app/dicionario.service';
+import { Dicionario } from 'src/app/dicionario-cadastro/dicionario.inteface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dicionario-texto-cadastro',
@@ -28,19 +30,18 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   })
 
   submitted = false;
-  
+
   @Input('palavraEditar') palavraEditar?: Palavra;
   @Output('aoAdicionar') aoAdicionar = new EventEmitter<Palavra>();
   @Output('aoAtualizar') aoAtualizar = new EventEmitter<Palavra>()
 
-  constructor(   
-    private dicionarioService: DicionarioService,
+  constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    if(this.palavraEditar) {
-      this.palavraForm.patchValue({...this.palavraEditar});
+    if (this.palavraEditar) {
+      this.palavraForm.patchValue({ ...this.palavraEditar });
     }
   }
 
@@ -51,13 +52,13 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if(!this.palavraForm.valid) {
+    if (!this.palavraForm.valid) {
       return;
     }
 
     const palavra: Palavra = this.palavraForm.getRawValue();
 
-    if(palavra.codigo && palavra.codigo > 0) {
+    if (palavra.codigo && palavra.codigo > 0) {
       // this.atualizaPalavra(palavra);
     } else {
       // this.adicionaPalavra(palavra);

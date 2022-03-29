@@ -22,46 +22,56 @@ export class DicionarioConsultaComponent implements OnInit {
   letrasNoDicionario: Set<String> = new Set();
   letraSelecionada: String = 'Todos';
   dicionario!: Dicionario;
-  codigoDicionario: Number = 1;
-
+  idDicionario: Number = 1;
 
   constructor(
     private dicionarioService: DicionarioService,
     private route: ActivatedRoute,
-    private modalService: BsModalService,
-   
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.codigoDicionario = params['id'];
-    });
 
-    this.dicionario = this.dicionarioService.buscaDicionario(
-      this.codigoDicionario
-    )!;
+    //  this.dicionario = { 
+    //     corBotao : '#FFFFFF',
+    //     corBotaoFonte : '#FFFFFF',
+    //     corIcone : '#FFFFFF',
+    //     corTitulo : '#FFFFFF'
+    //  } as Dicionario;
 
-    this.palavras = this.dicionario?.palavras;
+    this.idDicionario = this.route.snapshot.params['id'];
 
-    this.palavras?.forEach((p) =>
-      this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase())
-    );
+    this.dicionarioService
+      .buscaDicionario(this.idDicionario)
+      .subscribe((dic) => {
+        this.dicionario = dic;
 
-    if (this.letrasNoDicionario.size > 1) {
-      this.letrasNoDicionario.add('Todos');
-    }
+        console.log(this.dicionario);
+
+        this.palavras = this.dicionario?.palavras;
+
+        this.palavras?.forEach((p) =>
+          this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase())
+        );
+
+        if (this.letrasNoDicionario.size > 1) {
+          this.letrasNoDicionario.add('Todos');
+        }
+      });
   }
 
   public filtrarPorLetra(letra: String) {
     if (letra == 'Todos') {
-      this.palavras = this.dicionarioService.buscaDicionario(
-        this.codigoDicionario
-      )?.palavras;
+      this.dicionarioService
+        .buscaDicionario(this.idDicionario)
+        .subscribe((dic) => (this.dicionario = dic));
+
+      this.palavras = this.dicionario.palavras;
 
       this.letraSelecionada = 'Todos';
     } else {
       this.palavras = this.dicionarioService.buscaPorLetra(
-        this.codigoDicionario,
+        this.idDicionario,
         letra
       );
       this.letraSelecionada = letra;

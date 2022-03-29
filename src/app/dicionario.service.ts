@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Dicionario } from './dicionario-cadastro/dicionario.inteface';
 import { Palavra } from './dicionario-cadastro/palavra.interface';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { catchError, filter, find, map, retry } from 'rxjs/operators';
 
 
 @Injectable({
@@ -166,6 +166,20 @@ export class DicionarioService {
     )
   }
 
+    
+  buscaDicionario(idDicionario: Number ): Observable<Dicionario> {
+    return this.http.get<Dicionario>(this.dicionariosUrl + idDicionario).pipe(   
+     
+      retry(2),
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    );
+  }
+
+
+
   //===============================================================
 
   // atualiza(dicionarioAtualizar: Dicionario): Boolean {
@@ -182,15 +196,15 @@ export class DicionarioService {
   //   return dicionario;
   // }
 
-  buscaDicionario(codigoDicionario: Number ): Dicionario | undefined{
-    return  this.dicionarios.find(d => d.codigo == codigoDicionario)
+  buscaDicionarioB(codigoDicionario: Number ): Dicionario | undefined{
+     return  this.dicionarios.find(d => d.codigo == codigoDicionario)
   }
 
   buscaPorLetra(
     codigoDicionario: Number,
     letraBuscada: String
   ): Palavra[] | undefined {
-    return this.buscaDicionario(codigoDicionario)?.palavras.filter(
+    return this.buscaDicionarioB(codigoDicionario)?.palavras.filter(
       (p) => p.texto.charAt(0) == letraBuscada
     );
   }
