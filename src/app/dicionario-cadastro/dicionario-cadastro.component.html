@@ -20,7 +20,7 @@
             <a class="dicionario-acao" routerLink="{{dicionario.codigo}}/palavras">abc</a>
             <fa-icon class="dicionario-acao" [icon]="iconeEngrenagem" size="lg" (click)="editaDicionario(template, dicionario)"></fa-icon>
             <fa-icon class="dicionario-acao" [icon]="iconeExcluir" size="lg"
-                (click)="excluiDicionario(dicionario.codigo)"></fa-icon>
+                (click)="excluiDicionario(dicionario.id!)"></fa-icon>
         </li>
     </ul>
     <fa-icon [style.color]= "'#253c89'"  class="botao-adicionar-dicionario" [icon]="iconeAdicionar" size="lg" (click)="abreDicionarioForm(template)">

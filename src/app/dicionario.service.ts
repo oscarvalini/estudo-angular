@@ -12,10 +12,6 @@ import { catchError, map, retry } from 'rxjs/operators';
 export class DicionarioService {
 
 
-
-  
-
-
   dicionarioSequencia = 4;
 
   palavrasDic: Palavra[] = [
@@ -146,7 +142,7 @@ export class DicionarioService {
   }
 
   adiciona(dicionario: Dicionario): Observable<Dicionario> {
-    
+    dicionario.codigo = ++this.dicionarioSequencia;
     return this.http.post<Dicionario>(this.dicionariosUrl, dicionario).pipe(
      
       catchError((error: HttpErrorResponse) => {
@@ -156,22 +152,28 @@ export class DicionarioService {
     )
   }
 
-  editDicionario(dicionario: Dicionario): Observable<any> {
-    return this.http.put(this.dicionariosUrl + dicionario.codigo, dicionario);
+  atualiza(dicionario: Dicionario): Observable<any> {
+    return this.http.put(this.dicionariosUrl + dicionario.id, dicionario);
   }
 
-  deleteDicionario(id: number): Observable<any> {
-    return this.http.delete(this.dicionariosUrl + id);
+  exclui(id: Number): Observable<any> {
+    return this.http.delete(this.dicionariosUrl + id).pipe(
+     
+      catchError((error: HttpErrorResponse) => {
+        console.error(error);
+        return throwError(error);
+      })
+    )
   }
 
   //===============================================================
 
-  atualiza(dicionarioAtualizar: Dicionario): Boolean {
-    dicionarioAtualizar.palavras = this.palavrasDic;
-    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
-    this.dicionarios[indice] = dicionarioAtualizar;
-    return true;
-  }
+  // atualiza(dicionarioAtualizar: Dicionario): Boolean {
+  //   dicionarioAtualizar.palavras = this.palavrasDic;
+  //   const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == dicionarioAtualizar.codigo);
+  //   this.dicionarios[indice] = dicionarioAtualizar;
+  //   return true;
+  // }
 
   // adiciona(dicionario: Dicionario): Dicionario {
     
@@ -193,10 +195,10 @@ export class DicionarioService {
     );
   }
 
-  exclui(codigoDicionario: Number) {
-    const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
-    this.dicionarios.splice(indice, 1);
-  }
+  // exclui(codigoDicionario: Number) {
+  //   const indice = this.dicionarios.findIndex(dicionario => dicionario.codigo == codigoDicionario);
+  //   this.dicionarios.splice(indice, 1);
+  // }
 
   adicionaPalavra(codigoDicionario: number, palavra: Palavra) {
     const dicionario = this.dicionarios.find(dic => dic.codigo == codigoDicionario);
