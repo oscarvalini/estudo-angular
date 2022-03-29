@@ -1,11 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Palavra } from 'src/app/dicionario-cadastro/palavra.interface';
-import { Dicionario } from 'src/app/dicionario-cadastro/dicionario.inteface';
 import { DicionarioService } from 'src/app/dicionario.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dicionario-texto-cadastro',
@@ -13,9 +11,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./dicionario-texto-cadastro.component.css']
 })
 export class DicionarioTextoCadastroComponent implements OnInit {
-
-
-
   iconeAdicionar = faPlusCircle;
   iconeLupa = faMagnifyingGlass;
   iconeEngrenagem = faGear;
@@ -27,43 +22,31 @@ export class DicionarioTextoCadastroComponent implements OnInit {
 
   palavraForm = this.formBuilder.group({
     codigo: [],
-    codigo_dicionario: [],
-    texto: ['', Validators.required, Validators.nullValidator],
-    definicao: ['', Validators.required, Validators.nullValidator],
-    definicao_extra: ['', Validators.required, Validators.nullValidator],
-    
+    texto: ['', Validators.required],
+    definicao: ['', Validators.required],
+    definicao_extra: [''],
   })
 
   submitted = false;
   
-  dicionario!: Dicionario;
-  codigoDicionario: Number = 1;
-
+  @Input('palavraEditar') palavraEditar?: Palavra;
+  @Output('aoAdicionar') aoAdicionar = new EventEmitter<Palavra>();
+  @Output('aoAtualizar') aoAtualizar = new EventEmitter<Palavra>()
 
   constructor(   
     private dicionarioService: DicionarioService,
-    private route: ActivatedRoute,
     private modalService: BsModalService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
-    this.route.params.subscribe((params) => {
-      this.codigoDicionario = params['id'];
-    });
-
-    this.dicionario = this.dicionarioService.buscaDicionario(
-      this.codigoDicionario
-    )!;
+    if(this.palavraEditar) {
+      this.palavraForm.patchValue({...this.palavraEditar});
+    }
   }
 
   fecharFormulario(template: TemplateRef<any>) {
     this.modalService.hide();
   }
-
- 
-
-
 
   onSubmit() {
     this.submitted = true;

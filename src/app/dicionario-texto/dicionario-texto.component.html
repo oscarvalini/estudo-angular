@@ -18,7 +18,7 @@
     <ul class="lista-palavras">
         <li *ngFor="let palavra of dicionario.palavras" class="palavra">
             <span class="palavra-nome">{{palavra.texto}}</span>
-            <fa-icon class="palavra-acao" [icon]="iconeEditar" size="lg" (click)="abrePalavraForm(template)"></fa-icon>
+            <fa-icon class="palavra-acao" [icon]="iconeEditar" size="lg" (click)="editaPalavra(palavra)"></fa-icon>
             <fa-icon class="palavra-acao" [icon]="iconeExcluir" size="lg"
                 (click)="excluiPalavra(palavra.codigo)"></fa-icon>
         </li>
@@ -39,5 +39,9 @@
         ></fa-icon>
       </div>
 
-    <app-dicionario-texto-cadastro></app-dicionario-texto-cadastro>
+    <app-dicionario-texto-cadastro
+      [palavraEditar]="palavraSelecionada"
+      (aoAdicionar)="adicionaPalavra($event)"
+      (aoAtualizar)="atualizaPalavra($event)"
+    ></app-dicionario-texto-cadastro>
 </ng-template>
