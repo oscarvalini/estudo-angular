@@ -1,62 +1,57 @@
-
-    <div class="modal-header">
-        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
-        <h4 class="modal-title">Editar palavra</h4>
-        <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir"(click)="modalRef?.hide()" size="lg"></fa-icon>
+<div class="modal-body">
+  <form class="form" [formGroup]="palavraForm" (ngSubmit)="onSubmit()">
+    <div class="item-formulario">
+      <label class="form-label" for="palavra">Palavra</label>
+      <input
+        class="form-control"
+        type="text"
+        formControlName="palavra"
+        name="palavra"
+      />
     </div>
+    <small
+      *ngIf="submitted && palavraForm.get('texto')?.errors?.['required']"
+      class="text-danger d-block mt-2"
+      >Campo Obrigatório
+    </small>
 
-    <div class="modal-body">
-        <form class="form" [formGroup]="palavraForm" (ngSubmit)="onSubmit()">
-            
-            
-            <div class="item-formulario">
-                <label class="form-label" for="palavra">Palavra</label>
-                <input class="form-control" type="text" formControlName="palavra" name="palavra">
-            </div>
-            <small 
-                *ngIf="submitted && palavraForm.get('texto')?.errors?.['required']"
-                class="text-danger d-block mt-2">Campo Obrigatório
-            </small> 
+    <div class="item-formulario">
+      <label class="form-label" for="definicao">Definição</label>
+      <input
+        class="form-control"
+        type="text"
+        formControlName="definicao"
+        name="definicao"
+      />
+    </div>
+    <small
+      *ngIf="submitted && palavraForm.get('definicao')?.errors?.['required']"
+      class="text-danger d-block mt-2"
+      >Campo Obrigatório
+    </small>
 
-
-            <div class="item-formulario">
-                <label class="form-label" for="definicao">Definição</label>
-                <input class="form-control" type="text" formControlName="definicao" name="definicao">
-            </div>
-            <small 
-                *ngIf="submitted && palavraForm.get('definicao')?.errors?.['required']"
-                class="text-danger d-block mt-2">Campo Obrigatório
-            </small> 
-
-
-            <div class="item-formulario">
-                <label class="form-label" for="definicao-extra">Definição extra</label>
-            <!-- </textarea class="form-control" type="text" formControlName="definicao_extra" name="definicao-extra"> -->
-            <editor 
-            
-            formControlName="definicao_extra" 
-            
-            name="definicao-extra"
-            [init]="{
-              height: 500,
-              menubar: false,
-              plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
-              ],
-              toolbar:
-                'undo redo | formatselect | bold italic backcolor | \
+    <div class="item-formulario">
+      <label class="form-label" for="definicao-extra">Definição extra</label>
+      <!-- </textarea class="form-control" type="text" formControlName="definicao_extra" name="definicao-extra"> -->
+      <editor
+        formControlName="definicao_extra"
+        name="definicao-extra"
+        [init]="{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+          toolbar:
+            'undo redo | formatselect | bold italic backcolor | \
                 alignleft aligncenter alignright alignjustify | \
                 bullist numlist outdent indent | removeformat | help'
-            }"
-          ></editor>
-
-            </div>
-         
-
-
-            <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
-
-        </form>
+        }"
+      ></editor>
     </div>
+
+    <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
+  </form>
+</div>

@@ -53,3 +53,8 @@ h1 {
     font-style: none;
     text-decoration: none;
 }
+
+.modal-lg {
+    display:block;
+    width: 1200px;
+}

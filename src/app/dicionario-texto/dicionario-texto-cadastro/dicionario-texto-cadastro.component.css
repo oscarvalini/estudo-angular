@@ -1,0 +1,10 @@
+.modal-body {
+ 
+    max-height:auto;
+    overflow-x: auto;
+}
+.modalDialog {
+  /*Insira o código debaixo de tudo*/
+  overflow: scroll;
+  }
+

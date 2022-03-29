@@ -26,5 +26,18 @@
 </main>
 
 <ng-template #template>
+
+    <div class="modal-header">
+        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
+        <h4 class="modal-title">Editar palavra</h4>
+        <fa-icon
+          class="pull-right"
+          aria-hidden="true"
+          [icon]="iconeExcluir"
+          (click)="modalRef?.hide()"
+          size="lg"
+        ></fa-icon>
+      </div>
+
     <app-dicionario-texto-cadastro></app-dicionario-texto-cadastro>
 </ng-template>
