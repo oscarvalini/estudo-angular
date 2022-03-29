@@ -7,28 +7,30 @@ main {
     margin-bottom: 20px;
 }
 
-.titulo {
-    display: flex;
-    align-items: center;
-    color: #253c89
-
-}
-
-.botao-adicionar-dicionario {
-    color: b#253c89
-
-}
-
-.titulo--nome {
+h1 {
+    color: #253c89;
     font-size: 24px;
-    margin: 0 10px 0 0;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.lista-dicionarios {
+.botao-adicionar-palavra {
+    font-size: 15px;
+    background-color: #253c89;
+    color: white;
+    padding: 5px;
+    width: 115px;
+}
+
+.icone-adicionar-palavra {
+    float: left;
+}
+
+.lista-palavras {
     padding: 0;
 }
 
-.dicionario {
+.palavra {
     padding: 5px;
     display: flex;
     list-style: none;
@@ -36,15 +38,15 @@ main {
     border-bottom: 1px solid #CCC;
 }
 
-.dicionario:nth-child(even) {
+.palavra:nth-child(even) {
     background-color: #EFEFEF;
 }
 
-.dicionario-nome {
+.palavra-nome {
     flex-grow: 1;
 }
 
-.dicionario-acao {
+.palavra-acao {
     margin-left: 30px;
     color: #253c89;
 
