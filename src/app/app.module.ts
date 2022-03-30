@@ -18,6 +18,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './dicionario.dataservice';
 import { HttpClientModule } from '@angular/common/http';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
     FontAwesomeModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
-    ColorPickerModule
-   
+    ColorPickerModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

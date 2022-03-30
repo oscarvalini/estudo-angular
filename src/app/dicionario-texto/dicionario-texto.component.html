@@ -1,3 +1,4 @@
+<app-header></app-header>
 <main>
     <div class="parte-superior">
         <section>
@@ -25,11 +26,11 @@
     </ul>
 </main>
 
+<!-- Modal Palavra -->
 <ng-template #template>
-
     <div class="modal-header">
         <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
-        <h4 class="modal-title">Editar palavra</h4>
+        <h4 class="modal-title">{{palavraSelecionada ?  'Editar palavra' : 'Criar palavra'}}</h4>
         <fa-icon
           class="pull-right"
           aria-hidden="true"
@@ -37,11 +38,20 @@
           (click)="modalRef?.hide()"
           size="lg"
         ></fa-icon>
-      </div>
+    </div>
 
     <app-dicionario-texto-cadastro
       [palavraEditar]="palavraSelecionada"
-      (aoAdicionar)="adicionaPalavra($event)"
-      (aoAtualizar)="atualizaPalavra($event)"
+      [idDicionario]="dicionario.id"
+      (aoSubmeter)="buscaPalavras()"
     ></app-dicionario-texto-cadastro>
+</ng-template>
+
+<!-- Modal confirmar exclusão -->
+<ng-template #templateModalConfirmacao>
+    <div class="modal-body text-center">
+        <p>O Dicionário será excluido. Deseja confirmar?</p>
+        <button type="button" class="btn btn-default" (click)="confirmaExclusao()" >Sim</button>
+        <button type="button" class="btn btn-primary" (click)="cancelaExclusao()" >Não</button>
+    </div>
 </ng-template>

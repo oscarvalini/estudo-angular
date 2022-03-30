@@ -15,45 +15,38 @@ import { Palavra } from '../dicionario-cadastro/palavra.interface';
 export class DicionarioTextoComponent implements OnInit {
 
   iconeAdicionar = faPlusCircle;
-  iconeLupa = faMagnifyingGlass;
-  iconeEngrenagem = faGear;
   iconeAjuda = faQuestionCircle;
   iconeExcluir = faXmark;
   iconeEditar = faPencil;
 
   modalRef?: BsModalRef;
   @ViewChild('template') elementoModalRef!: TemplateRef<any>
+  @ViewChild('templateModalConfirmacao') modalConfirmacaoRef!: TemplateRef<any>
 
   dicionario!: Dicionario;
   palavras: Palavra[] = []
 
   palavraSelecionada?: Palavra;
-
-  dicionarioForm = this.formBuilder.group({
-    codigo: [],
-    nome: ['', Validators.required],
-    corBotao: ['#000000', Validators.required],
-    corBotaoFonte: ['#FFFFFF', Validators.required],
-    corTitulo: ['#FFFFFF', Validators.required],
-    corIcone: ['#FFFFFF', Validators.required]
-  })
-
-  submitted = false;
+  idPalavraExcluir?: number;
 
   constructor(
     private route: ActivatedRoute,
     private dicionarioService: DicionarioService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     const idDicionario = this.route.snapshot.params['id'];
     this.dicionarioService.buscaDicionario(idDicionario).subscribe(dicionarioEncontrado => {
       this.dicionario = dicionarioEncontrado;
+      this.buscaPalavras();
     });
 
-    this.dicionarioService.buscaPalavrasPorIdDicionario(idDicionario).subscribe(palavras => {
+    this.modalService.onHide.subscribe(() => { this.palavraSelecionada = undefined })
+  }
+
+  buscaPalavras() {
+    this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
       this.palavras = palavras;
     })
   }
@@ -63,47 +56,24 @@ export class DicionarioTextoComponent implements OnInit {
   }
 
   editaPalavra(palavra: Palavra) {
-    this.modalService.show(this.elementoModalRef);
+    this.modalRef = this.modalService.show(this.elementoModalRef);
     this.palavraSelecionada = palavra;
   }
 
-  adicionaPalavra(palavra: Palavra) {
-    console.log(palavra);
-    this.dicionarioService.adicionaPalavra(palavra);
-    this.buscaDicionario();
+  excluiPalavra(idPalavra: number) {
+    this.idPalavraExcluir = idPalavra;
+    this.modalRef = this.modalService.show(this.modalConfirmacaoRef);
   }
 
-  atualizaPalavra(palavraAtualizar: Palavra) {
-    console.log(palavraAtualizar)
-    this.dicionarioService.atualizaPalavra(palavraAtualizar);
-    this.buscaDicionario();
-  }
-
-  excluiPalavra(idDicionario: number) {
-    this.dicionarioService.excluiDicionario(idDicionario);
-    this.buscaDicionario();
-  }
-
-  buscaDicionario() {
-    this.dicionarioService.buscaDicionario(this.dicionario.id!).subscribe(dic => this.dicionario = dic);
-
-
-    // this.dicionario = this.dicionarioService.buscaDicionario(this.dicionario.codigo)!;
-    console.log(this.dicionario);
-  }
-
-  limpaFormulario() {
-    this.dicionarioForm.reset({
-      corBotao: '#000000',
-      corBotaoFonte: '#FFFFFF',
-      corTitulo: '#FFFFFF',
-      corIcone: '#FFFFFF'
+  confirmaExclusao(): void {
+    this.dicionarioService.excluiPalavra(this.idPalavraExcluir!).subscribe(response => {
+      console.log(response)
+      this.buscaPalavras();
+      this.modalRef?.hide();
     });
-    this.submitted = false;
   }
-
-  changeColor(event: any) {
-    console.log(event);
+ 
+  cancelaExclusao(): void {
+    this.modalRef?.hide();
   }
-
 }

@@ -1,53 +1,50 @@
-.dictionary-div {
-  width: 95%;
-}
-.dicionary-header-color {
+
+header {
   height: 75px;
- 
-  padding: 2px;
-  margin: 2px;
 }
+
+main {
+  margin: 20px 50px 0;
+  min-width: 680px
+}
+
+.secao-titulo {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 3px solid #ebebeb;
+}
+
+.links-titulo {
+  display: flex;
+  align-items: center;
+}
+
+.links-titulo a {
+  text-decoration: none;
+  margin-left: 30px;
+}
+
 .menu-dicionario{
-    margin: 20px auto;
-    width: auto;
-    padding: 5px 10px;
-    background-image: linear-gradient(rgb(252, 252, 252), rgb(131, 183, 224));
-    border-radius: 5px;
-    border: 1px solid rgb(93, 173, 226);
-    background-color: rgb(35, 198, 226);
-    color: rgb(0, 113, 199);
-  
+  margin: 20px auto;
+  width: fit-content;
+  padding: 5px 10px;
+  background-image: linear-gradient(rgb(252, 252, 252), rgb(131, 183, 224));
+  border-radius: 5px;
+  border: 1px solid rgb(93, 173, 226);
+  background-color: rgb(35, 198, 226);
+  color: rgb(0, 113, 199);
 }
 
 .menu-dicionario a{
-    padding: 5px 5px;
-    text-decoration: none;
+  padding: 5px 5px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .menu-dicionario .active{
-font-weight:600;
+  font-weight:600;
 }
 
-.container {
-  display: grid;
- 
-}
-
-.dicionary-header {
-  border-bottom: 3px solid #ebebeb;;
-}
-
-.dicionary {
-  
-  display: grid;
-}
-
-.dicionary-header-title {
-  
-  float: left;
-  text-align: left;
-  padding: 15px 10px 5px 10px;
-}
 .dicionary-header-item {
   float: right;
   text-align: center;
@@ -68,23 +65,20 @@ font-weight:600;
 
 .table-item-description {
   float: left;
-  
 }
 
-.modal-detalhes-dicionario{
-    
-    color: white;
+.modal-detalhes-dicionario{  
+  color: white;
 }
 
 #templateDetalhesDicionario modal-title{
-text-align: left;
+  text-align: left;
 }
-
-
 
 .modal-detalhes-dicionario-botao{
-padding: 20px;
+  padding: 20px;
 }
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -95,26 +89,26 @@ table {
   font-weight: bolder;
 }
 
-
 .modal-body {
- 
-    max-height:800px; 
-    overflow-y: auto;
+  max-height:800px; 
+  overflow-y: auto;
 }
+
 .modalDialog {
   /*Insira o código debaixo de tudo*/
   overflow: scroll;
-  }
+}
   
 td,
 th {
-  
   text-align: left;
   padding: 8px;
 }
+
 tr {
-    border-bottom: 1px solid #7c7c7c;
+  border-bottom: 1px solid #7c7c7c;
 }
+
 tr:nth-child(even) {
   background-color: #ebebeb;
 }

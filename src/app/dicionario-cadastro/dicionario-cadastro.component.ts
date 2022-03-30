@@ -3,7 +3,7 @@ import { DicionarioService } from '../dicionario.service';
 import { Dicionario } from './dicionario.inteface';
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dicionario-cadastro',
@@ -20,8 +20,10 @@ export class DicionarioCadastroComponent implements OnInit {
   iconeEditar = faPencil;
 
   modalRef?: BsModalRef;
-
+  @ViewChild('templateModalConfirmacao') modalConfirmacaoRef!: TemplateRef<any>
   dicionarios: Dicionario[] = [];
+
+  idDicionarioExcluir!: number;
 
   dicionarioForm = this.formBuilder.group({
     id: [],
@@ -43,6 +45,7 @@ export class DicionarioCadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.dicionarioService.buscaDicionarios().subscribe(dic => this.dicionarios  = dic);
+    this.modalService.onHide.subscribe(() => { this.limpaFormulario() })
   }
 
   abreDicionarioForm(template: TemplateRef<any>) {
@@ -90,11 +93,9 @@ export class DicionarioCadastroComponent implements OnInit {
     this.modalRef = this.modalService.show(template)
   }
 
-  excluiDicionario(idDicionario: Number) {
-    this.dicionarioService.excluiDicionario(idDicionario).subscribe(response => {
-      console.log(response)
-      this.buscaDicionarios();
-    });
+  excluiDicionario(idDicionario: number) {
+    this.idDicionarioExcluir = idDicionario;
+    this.modalRef = this.modalService.show(this.modalConfirmacaoRef);
   }
 
   buscaDicionarios() {
@@ -114,6 +115,18 @@ export class DicionarioCadastroComponent implements OnInit {
 
   changeColor(event: any) {
     console.log(event);
+  }
+
+  confirmaExclusao(): void {
+    this.dicionarioService.excluiDicionario(this.idDicionarioExcluir).subscribe(response => {
+      console.log(response)
+      this.buscaDicionarios();
+      this.modalRef?.hide();
+    });
+  }
+ 
+  cancelaExclusao(): void {
+    this.modalRef?.hide();
   }
 
 }

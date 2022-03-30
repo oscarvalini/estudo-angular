@@ -1,74 +1,54 @@
-<div class="container dictionary-div">
-  <div class="dicionary-header-color" [ngStyle]="{'background-color': dicionario.corIcone}" ></div>
-
-  
-  <div class="dicionary-header">
-    <div class="dicionary-header-title">
-      <h5 [ngStyle]="{'color' : dicionario.corTitulo }">{{dicionario.nome}}</h5>
+<header [ngStyle]="{'background-color': dicionario.corIcone}"></header>
+<main>
+  <section class="secao-titulo">
+    <h3 [ngStyle]="{'color' : dicionario.corTitulo }">{{dicionario.nome}}</h3>
+    <div class="links-titulo">
+      <a [ngStyle]="{'color' : dicionario.corTitulo }" routerLink="palavras">abc</a>
+      <a><fa-icon [ngStyle]="{'color' : dicionario.corIcone }" [icon]="iconeConfig" size="lg"></fa-icon></a>
     </div>
-    <div class="dicionary-header-item">
-      <div>
-        <fa-icon [ngStyle]="{'color' : dicionario.corIcone }" [icon]="iconeConfig" size="lg"></fa-icon>
-      </div>
-    </div>
-    <div class="dicionary-header-item">
-      <div [ngStyle]="{'color' : dicionario.corTitulo }" >abc</div>
-    </div>
-  </div>
+  </section>
 
   <div class="menu-dicionario">
-    <a  *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)" [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
+    <a *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)"
+      [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
   </div>
 
   <div class="dicionary">
     <table>
-        <tr *ngFor="let palavra of palavras" class="dicionario">
+      <tr *ngFor="let palavra of palavras" class="dicionario">
         <div class="dicionary-body">
           <div class="table-data">
-            <td class="table-item-title"><span [ngStyle]="{'color' : dicionario.corTitulo }" routerLink="/palavra/{{palavra.id}}"  >{{palavra.texto}}</span></td>
+            <td class="table-item-title"><span [ngStyle]="{'color' : dicionario.corTitulo }"
+                routerLink="/palavra/{{palavra.id}}">{{palavra.texto}}</span></td>
             <td class="table-item-see-more">
-              <a
-                *ngIf="palavra.definicao_extra"
-                [ngStyle]="{'color' : dicionario.corTitulo }"
-                (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)"
-                >Ver mais</a
-              >
+              <a *ngIf="palavra.definicao_extra" [ngStyle]="{'color' : dicionario.corTitulo }"
+                (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)">Ver mais</a>
             </td>
           </div>
           <div>
             <td class="table-item-description">
-                {{palavra.definicao}}
+              {{palavra.definicao}}
             </td>
           </div>
         </div>
       </tr>
     </table>
   </div>
-</div>
+</main>
 
 <ng-template #templateDetalhesDicionario class="modal-lg">
-  <div class="modal-header" [style.backgroundColor]="dicionario.corBotao"  >
-    <fa-icon [style.color]="dicionario.corBotaoFonte" 
-      class="pull-left"
-      aria-hidden="true"
-      [icon]="iconeDocumento"
-      size="lg"
-    ></fa-icon>
-    <h4 [style.color]="dicionario.corBotaoFonte" >{{ palavraModal.texto}}</h4>
-    <fa-icon [style.color]="dicionario.corBotaoFonte" 
-      class="pull-right"
-      aria-hidden="true"
-      [icon]="iconeFechar"
-      (click)="modalRef?.hide()"
-      size="lg"
-    ></fa-icon>
+  <div class="modal-header" [style.backgroundColor]="dicionario.corBotao">
+    <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-left" aria-hidden="true" [icon]="iconeDocumento"
+      size="lg"></fa-icon>
+    <h4 [style.color]="dicionario.corBotaoFonte">{{ palavraModal.texto}}</h4>
+    <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-right" aria-hidden="true" [icon]="iconeFechar"
+      (click)="modalRef?.hide()" size="lg"></fa-icon>
   </div>
-  <div  class="modal-body">
-    {{ palavraModal.definicao_extra}}
+  <div class="modal-body" [innerHTML]="palavraModal.definicao_extra">
   </div>
   <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
-    <button [style.backgroundColor]="dicionario.corBotao" [style.color]="dicionario.corBotaoFonte" class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
+    <button [style.backgroundColor]="dicionario.corBotao" [style.color]="dicionario.corBotaoFonte"
+      class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
     </button>
-</div>
- 
+  </div>
 </ng-template>

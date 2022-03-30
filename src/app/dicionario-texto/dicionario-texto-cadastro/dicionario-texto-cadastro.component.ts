@@ -23,7 +23,8 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   modalRef?: BsModalRef;
 
   palavraForm = this.formBuilder.group({
-    codigo: [],
+    id: [],
+    idDicionario: ['', Validators.required],
     texto: ['', Validators.required],
     definicao: ['', Validators.required],
     definicao_extra: [''],
@@ -32,16 +33,21 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   submitted = false;
 
   @Input('palavraEditar') palavraEditar?: Palavra;
-  @Output('aoAdicionar') aoAdicionar = new EventEmitter<Palavra>();
-  @Output('aoAtualizar') aoAtualizar = new EventEmitter<Palavra>()
+  @Input('idDicionario') idDicionario?: number;
+  @Output('aoSubmeter') submeterPalavraEventEmitter = new EventEmitter<Palavra>();
 
   constructor(
     private modalService: BsModalService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private dicionarioService: DicionarioService
+  ) { }
 
   ngOnInit(): void {
     if (this.palavraEditar) {
+      console.log(this.palavraEditar);
       this.palavraForm.patchValue({ ...this.palavraEditar });
+    } else {
+      this.palavraForm.patchValue({ idDicionario: this.idDicionario })
     }
   }
 
@@ -51,17 +57,14 @@ export class DicionarioTextoCadastroComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (!this.palavraForm.valid) {
       return;
     }
-
     const palavra: Palavra = this.palavraForm.getRawValue();
-
     if (palavra.id && palavra.id > 0) {
-      // this.atualizaPalavra(palavra);
+      this.atualizaPalavra(palavra);
     } else {
-      // this.adicionaPalavra(palavra);
+      this.adicionaPalavra(palavra);
     }
 
 
@@ -69,10 +72,23 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     this.modalService.hide();
   }
 
-  // adicionaPalavra(dicionario: Dicionario) {
-  //   console.log(dicionario)
-  //   this.dicionarioService.adiciona(dicionario);
-  //   this.buscaDicionarios();
-  // }
+  adicionaPalavra(palavra: Palavra) {
+    console.log(palavra);
+    this.dicionarioService.adicionaPalavra(palavra).subscribe(palavra => {
+      this.submeterPalavraEventEmitter.emit(palavra);
+    });
+  }
+
+  atualizaPalavra(palavraAtualizar: Palavra) {
+    console.log(palavraAtualizar)
+    this.dicionarioService.atualizaPalavra(palavraAtualizar).subscribe(palavra => {
+      this.submeterPalavraEventEmitter.emit(palavra);
+    });
+  }
+
+  limpaFormulario() {
+    this.palavraForm.reset();
+    this.submitted = false;
+  }
 
 }

@@ -15,8 +15,8 @@ main {
 }
 
 .botao-adicionar-dicionario {
-    color: b#253c89
-
+    color: #253c89;
+    cursor: pointer;
 }
 
 .titulo--nome {
@@ -47,7 +47,7 @@ main {
 .dicionario-acao {
     margin-left: 30px;
     color: #253c89;
-
+    cursor: pointer;
     font-style: none;
     text-decoration: none;
 }

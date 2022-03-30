@@ -45,8 +45,15 @@ export class DicionarioService {
     return this.http.put(this.dicionariosUrl + dicionario.id, dicionario);
   }
 
-  excluiDicionario(id: Number): Observable<any> {
+  excluiDicionario(id: number): Observable<any> {
     return this.http.delete(this.dicionariosUrl + id).pipe(
+      retry(2),
+      catchError(this.handleError)
+    )
+  }
+
+  excluiPalavra(id: number): Observable<Palavra> {
+    return this.http.delete<Palavra>(this.palavrasUrl + id).pipe(
       retry(2),
       catchError(this.handleError)
     )
@@ -54,6 +61,15 @@ export class DicionarioService {
   
   buscaPalavrasPorIdDicionario(idDicionario: number) {
     const options = idDicionario ? { params: new HttpParams().set('idDicionario', idDicionario) } : {};
+    return this.http.get<Palavra[]>(this.palavrasUrl, options).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  buscaPalavrasPelaPrimeiraLetra(idDicionario: number, letra: string) {
+    const options = idDicionario ? { params: new HttpParams().set('idDicionario', idDicionario).append('texto', `^${letra}`) } : {};
+    console.log(letra);
+    console.log(options);
     return this.http.get<Palavra[]>(this.palavrasUrl, options).pipe(
       catchError(this.handleError)
     );

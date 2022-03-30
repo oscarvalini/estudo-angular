@@ -41,20 +41,26 @@ export class DicionarioConsultaComponent implements OnInit {
 
     this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => {
       this.palavras = palavras;
-      console.log(palavras);
+      this.palavras.forEach((p) => this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase()));
+      if (this.letrasNoDicionario.size > 1) {
+        this.letrasNoDicionario.add('Todos');
+      }
+      console.log(palavras)
     })
-  }
+  }        
 
   public filtrarPorLetra(letra: string) {
-
     if (letra == 'Todos') {
       this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => { 
         this.palavras = palavras;
         this.letraSelecionada = 'Todos';
       })
     } else {
-      this.palavras = this.palavras.filter(palavras => palavras.texto.charAt(0) == letra);
-      this.letraSelecionada = letra;
+      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.idDicionario, letra).subscribe(palavras => {
+        console.log(palavras)
+        this.palavras = palavras
+        this.letraSelecionada = letra;
+      })
     }
   }
 
