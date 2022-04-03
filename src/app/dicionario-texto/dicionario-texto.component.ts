@@ -29,6 +29,8 @@ export class DicionarioTextoComponent implements OnInit {
 
   dicionario!: Dicionario;
   palavras: DicionarioTexto[] = []
+  palavrasExibir: DicionarioTexto[] = []
+
 
   palavraSelecionada?: DicionarioTexto;
   idPalavraExcluir?: number;
@@ -52,9 +54,35 @@ export class DicionarioTextoComponent implements OnInit {
   buscaPalavras() {
     this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
       this.palavras = palavras;
+      this.palavrasExibir = this.ordernarPalavras(this.palavras)
     })
   }
 
+
+  ordernarPalavras(palavrasParaOrdenar : DicionarioTexto[]){
+    return palavrasParaOrdenar.sort((a, b) => {
+      if (a.texto < b.texto) { return -1; }
+      if (a.texto > b.texto) { return 1; }
+      return 0;
+    });
+  }
+
+  public filtrarPorLetra(letra: string) {
+    if (letra == '') {
+      this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
+        this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
+      })
+    } else {
+      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
+        
+        this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
+      })
+    }
+  }
+
+  
   abreModalDicionarioTexto() {
     this.modalRef = this.modalService.show(this.modalDicionarioTexto, Object.assign({}, this.modalOptions));
   }

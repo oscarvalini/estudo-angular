@@ -9,19 +9,23 @@ import { DicionarioTexto } from 'src/app/dicionario-texto/dicionario-texto.inter
 export class PaginadorComponent implements OnInit, OnChanges {
 
   @Input('palavras') palavras: DicionarioTexto[]  = [];
+  @Input('iniciarSemFiltro') iniciarSemFiltro: boolean = false;
   @Output('aoMudar') mudaLetraEvent = new EventEmitter<string>()
 
   letrasNoDicionario = new Set<string>();
   letras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ''];
   letraSelecionada: string = '';
 
+
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['palavras']) {
+      console.log(changes['palavras'].currentValue);
       const palavras: DicionarioTexto[] = changes['palavras'].currentValue;
       this.letrasNoDicionario = new Set(palavras.map((palavra: DicionarioTexto) => palavra.texto.charAt(0).trim().toUpperCase()));
-      this.letraSelecionada = palavras.length < 25 ? '' : [...this.letrasNoDicionario][0] 
+      this.letraSelecionada = (palavras.length < 25 ) ?  '' : [...this.letrasNoDicionario][0] 
+      this.mudaLetraEvent.emit(this.letraSelecionada);
     }
   }
 
@@ -29,6 +33,7 @@ export class PaginadorComponent implements OnInit, OnChanges {
     //this.letras = new Set(this.palavras.map(palavra => palavra.texto.charAt(0).trim().toUpperCase()))
     console.log('Length: ' +  this.letrasNoDicionario.size)
     console.log('Oninit ' + Array.from(this.letras));
+    console.log( 'letraselecionada:' + this.letraSelecionada );
   }
 
   filtrarPorLetra(letra: string) {
@@ -44,6 +49,8 @@ export class PaginadorComponent implements OnInit, OnChanges {
     return this.letrasNoDicionario.has(letra);
 
   }
+
+  
 
 
 }
