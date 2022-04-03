@@ -1,10 +1,10 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
-import { faGear, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { Dicionario } from '../dicionario-cadastro/dicionario.inteface';
-import { Palavra } from '../dicionario-cadastro/palavra.interface';
+import { Dicionario } from '../dicionario/dicionario.inteface';
+import { DicionarioTexto } from '../dicionario-texto/dicionario-texto.interface';
 import { DicionarioService } from '../dicionario.service';
 
 @Component({
@@ -13,33 +13,42 @@ import { DicionarioService } from '../dicionario.service';
   styleUrls: ['./dicionario-consulta.component.css'],
 })
 export class DicionarioConsultaComponent implements OnInit {
-  modalRef!: BsModalRef;
+
+  @ViewChild('templateDicionario') templateDicionarioRef!: TemplateRef<BsModalRef>
+  @ViewChild('templateDefinicaoExtra') templateDefinicaoExtraRef!: TemplateRef<BsModalRef>
+
+  modalRef?: BsModalRef;
+  iconeEditar = faPencil;
   iconeDocumento = faFileLines;
   iconeConfig = faGear;
   iconeFechar = faXmark;
-  palavras: Palavra[] = [];
-  palavraModal!: Palavra;
+  palavras: DicionarioTexto[] = [];
+  palavraModal!: DicionarioTexto;
   letrasNoDicionario: Set<string> = new Set();
   letraSelecionada: string = 'Todos';
   dicionario!: Dicionario;
-  idDicionario: number = 1;
 
   constructor(
     private dicionarioService: DicionarioService,
+    private routingService: Router,
     private route: ActivatedRoute,
     private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
+    const idDicionario = this.route.snapshot.params['id'];
 
-    this.idDicionario = this.route.snapshot.params['id'];
-
-    this.dicionarioService.buscaDicionario(this.idDicionario).subscribe((dicionario) => {
+    this.dicionarioService.buscaDicionario(idDicionario).subscribe({
+      next: (dicionario) => {
         this.dicionario = dicionario;
-        console.log(this.dicionario);
-    });
+        console.log(dicionario);
+      },
+      error: (err) => {
+        this.routingService.navigateByUrl('..');
+      }
+    })
 
-    this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => {
+    this.dicionarioService.buscaPalavrasPorIdDicionario(idDicionario).subscribe(palavras => {
       this.palavras = palavras;
       this.palavras.forEach((p) => this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase()));
       if (this.letrasNoDicionario.size > 1) {
@@ -47,16 +56,16 @@ export class DicionarioConsultaComponent implements OnInit {
       }
       console.log(palavras)
     })
-  }        
+  }
 
   public filtrarPorLetra(letra: string) {
     if (letra == 'Todos') {
-      this.dicionarioService.buscaPalavrasPorIdDicionario(this.idDicionario).subscribe(palavras => { 
+      this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
         this.palavras = palavras;
         this.letraSelecionada = 'Todos';
       })
     } else {
-      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.idDicionario, letra).subscribe(palavras => {
+      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
         console.log(palavras)
         this.palavras = palavras
         this.letraSelecionada = letra;
@@ -64,13 +73,22 @@ export class DicionarioConsultaComponent implements OnInit {
     }
   }
 
-  public letraEstaSelecionada(letra: String) {
+  letraEstaSelecionada(letra: String) {
     return this.letraSelecionada == letra;
   }
 
-  public abrirModalDefinicaoExtra(
+  aoSubmeter(dicionario: Dicionario) {
+    this.dicionarioService.buscaDicionario(this.dicionario.id!).subscribe((dicionario) => this.dicionario = dicionario);
+    this.modalRef?.hide();
+  }
+
+  abrirModalDicionario() {
+    this.modalRef = this.modalService.show(this.templateDicionarioRef);
+  }
+
+  abrirModalDefinicaoExtra(
     template: TemplateRef<any>,
-    palavra: Palavra
+    palavra: DicionarioTexto
   ) {
     this.palavraModal = palavra;
 
@@ -80,8 +98,6 @@ export class DicionarioConsultaComponent implements OnInit {
       backdrop: true,
       ignoreBackdropClick: false,
     };
-
-    /* this is how we open a Modal Component from another component */
 
     this.modalRef = this.modalService.show(
       template,

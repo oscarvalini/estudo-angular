@@ -5,7 +5,7 @@
             <h1 class="titulo--nome">{{dicionario.nome}}</h1>
             <button 
                 class="btn botao-adicionar-palavra"
-                (click)="abrePalavraForm(template)"
+                (click)="abreModalDicionarioTexto()"
             >
                 <fa-icon class="icone-adicionar-palavra" [icon]="iconeAdicionar" size="lg"></fa-icon> Palavra
             </button>
@@ -27,27 +27,24 @@
 </main>
 
 <!-- Modal Palavra -->
-<ng-template #template>
-    <div class="modal-header">
-        <fa-icon [icon]="iconeEditar" size="lg"></fa-icon>
-        <h4 class="modal-title">{{palavraSelecionada ?  'Editar palavra' : 'Criar palavra'}}</h4>
-        <fa-icon
-          class="pull-right"
-          aria-hidden="true"
-          [icon]="iconeExcluir"
-          (click)="modalRef?.hide()"
-          size="lg"
-        ></fa-icon>
-    </div>
 
-    <app-dicionario-texto-cadastro
-      [palavraEditar]="palavraSelecionada"
-      [idDicionario]="dicionario.id"
-      (aoSubmeter)="buscaPalavras()"
-    ></app-dicionario-texto-cadastro>
+<ng-template #templateModalDicionarioTexto>
+    <app-modal-padrao
+        [iconeTitulo]="iconeEditar"
+        [titulo]="palavraSelecionada ? 'Editar palavra' : 'Nova palavra'"
+        (aoFechar)="modalRef?.hide()"
+    >
+        <app-dicionario-texto-cadastro
+            [palavraEditar]="palavraSelecionada"
+            [idDicionario]="dicionario.id"
+            (aoSubmeter)="buscaPalavras()"
+        >
+        </app-dicionario-texto-cadastro>
+    </app-modal-padrao>
 </ng-template>
 
 <!-- Modal confirmar exclusão -->
+
 <ng-template #templateModalConfirmacao>
     <div class="modal-body text-center">
         <p>O Dicionário será excluido. Deseja confirmar?</p>

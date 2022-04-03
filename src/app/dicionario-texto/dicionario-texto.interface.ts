@@ -1,7 +1,7 @@
-export interface Palavra {
+export interface DicionarioTexto {
     id?: number,
     idDicionario: number
     texto: string;
     definicao: string;
-    definicao_extra?: string; 
+    definicaoExtra?: string; 
 }

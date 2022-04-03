@@ -1,0 +1,55 @@
+<form class="form" [formGroup]="dicionarioForm" (ngSubmit)="onSubmit()">
+    <div class="item-formulario">
+        <label class="form-label" for="titulo">Título</label>
+        <input class="form-control" type="text" formControlName="nome" name="titulo" trimInput>
+    </div>
+    <small 
+        *ngIf="submitted && dicionarioForm.get('nome')?.errors?.['required']"
+        class="text-danger d-block mt-2">Campo Obrigatório
+    </small> 
+    <div class="item-formulario inline">
+        <input
+            name="corBotao"
+            class="form-control colorpicker"
+            [colorPicker]="dicionarioForm.controls['corBotao'].value"
+            [style.background]="dicionarioForm.controls['corBotao'].value"
+            (colorPickerChange)="dicionarioForm.controls['corBotao'].setValue($event)"
+        />
+        <label for="corBotao">Cor de fundo do botão</label>
+    </div>
+    <div class="item-formulario inline">
+        <input 
+            name="corBotaoFonte"
+            class="form-control colorpicker"
+            [colorPicker]="dicionarioForm.controls['corBotaoFonte'].value"
+            [style.background]="dicionarioForm.controls['corBotaoFonte'].value"
+            (colorPickerChange)="dicionarioForm.controls['corBotaoFonte'].setValue($event)"
+        />
+        <label for="corBotaoFonte">Cor da fonte do botão</label>
+    </div>
+    <div class="item-formulario inline">
+        <input 
+            name="corTitulo"
+            class="form-control colorpicker"
+            [colorPicker]="dicionarioForm.controls['corTitulo'].value"
+            [style.background]="dicionarioForm.controls['corTitulo'].value"
+            (colorPickerChange)="dicionarioForm.controls['corTitulo'].setValue($event)"
+        />
+        <label for="corTitulo">Cor da fonte para títulos</label>
+    </div>
+    <div class="item-formulario inline">
+        <input 
+            name="corIcone"
+            class="form-control colorpicker"
+            [colorPicker]="dicionarioForm.controls['corIcone'].value"
+            [style.background]="dicionarioForm.controls['corIcone'].value"
+            (colorPickerChange)="dicionarioForm.controls['corIcone'].setValue($event)"
+        />
+        <label for="corIcone">Cor do ícone</label>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <app-botao-padrao (submit)="onSubmit()">Salvar</app-botao-padrao>
+    </div>
+
+</form>

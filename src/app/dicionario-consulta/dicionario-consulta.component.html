@@ -1,10 +1,10 @@
-<header [ngStyle]="{'background-color': dicionario.corIcone}"></header>
+<header [ngStyle]="{'background-color': dicionario?.corIcone ?? ''}"></header>
 <main>
   <section class="secao-titulo">
-    <h3 [ngStyle]="{'color' : dicionario.corTitulo }">{{dicionario.nome}}</h3>
+    <h3 [ngStyle]="{'color' : dicionario?.corTitulo }">{{dicionario?.nome ?? ''}}</h3>
     <div class="links-titulo">
-      <a [ngStyle]="{'color' : dicionario.corTitulo }" routerLink="palavras">abc</a>
-      <a><fa-icon [ngStyle]="{'color' : dicionario.corIcone }" [icon]="iconeConfig" size="lg"></fa-icon></a>
+      <a [ngStyle]="{'color' : dicionario?.corTitulo ?? '' }" routerLink="palavras">abc</a>
+      <a (click)="abrirModalDicionario()"><fa-icon [ngStyle]="{'color' : dicionario?.corIcone ?? '' }" [icon]="iconeConfig" size="lg"></fa-icon></a>
     </div>
   </section>
 
@@ -13,30 +13,56 @@
       [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
   </div>
 
-  <div class="dicionary">
-    <table>
-      <tr *ngFor="let palavra of palavras" class="dicionario">
-        <div class="dicionary-body">
-          <div class="table-data">
-            <td class="table-item-title"><span [ngStyle]="{'color' : dicionario.corTitulo }"
-                routerLink="/palavra/{{palavra.id}}">{{palavra.texto}}</span></td>
-            <td class="table-item-see-more">
-              <a *ngIf="palavra.definicao_extra" [ngStyle]="{'color' : dicionario.corTitulo }"
-                (click)="abrirModalDefinicaoExtra(templateDetalhesDicionario, palavra)">Ver mais</a>
-            </td>
-          </div>
-          <div>
-            <td class="table-item-description">
-              {{palavra.definicao}}
-            </td>
-          </div>
-        </div>
-      </tr>
-    </table>
+  <div class="lista-palavras">
+    <dl>
+      <div *ngFor="let palavra of palavras" class="lista-palavras-item">
+        <a 
+          *ngIf="palavra.definicaoExtra"
+          [ngStyle]="{'color' : dicionario.corTitulo }" 
+          (click)="abrirModalDefinicaoExtra(templateDefinicaoExtra, palavra)"
+        >
+          Ver mais
+        </a>
+        <dt [ngStyle]="{'color' : dicionario.corTitulo }">
+          {{palavra.texto}}
+        </dt>
+        <dd>
+          {{palavra.definicao}}
+        </dd>
+      </div>
+    </dl>
   </div>
 </main>
 
-<ng-template #templateDetalhesDicionario class="modal-lg">
+<!-- MODAL Dicionário -->
+
+<ng-template #templateDicionario>
+  <app-modal-padrao
+      [iconeTitulo]="iconeEditar"
+      [titulo]="'Dicionário'"
+      (aoFechar)="modalRef?.hide()"
+  >
+      <app-dicionario-form
+          [dicionarioEditar]="dicionario"
+          (aoSubmeter)="aoSubmeter($event)"
+      > 
+      </app-dicionario-form>
+  </app-modal-padrao>
+</ng-template>
+
+<!-- MODAL Definição Extra -->
+
+<ng-template #templateDefinicaoExtra>
+  <app-modal-padrao
+      [iconeTitulo]="iconeDocumento"
+      [titulo]="palavraModal.texto"
+      (aoFechar)="modalRef?.hide()"
+  >
+    <div class="modal-body" [innerHTML]="palavraModal.definicaoExtra"></div>
+  </app-modal-padrao>
+</ng-template>
+
+<!-- <ng-template #templateDefinicaoExtra class="modal-lg">
   <div class="modal-header" [style.backgroundColor]="dicionario.corBotao">
     <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-left" aria-hidden="true" [icon]="iconeDocumento"
       size="lg"></fa-icon>
@@ -44,11 +70,11 @@
     <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-right" aria-hidden="true" [icon]="iconeFechar"
       (click)="modalRef?.hide()" size="lg"></fa-icon>
   </div>
-  <div class="modal-body" [innerHTML]="palavraModal.definicao_extra">
+  <div class="modal-body" [innerHTML]="palavraModal.definicaoExtra">
   </div>
   <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
     <button [style.backgroundColor]="dicionario.corBotao" [style.color]="dicionario.corBotaoFonte"
       class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
     </button>
   </div>
-</ng-template>
+</ng-template> -->

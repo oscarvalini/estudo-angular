@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DicionarioCadastroComponent } from './dicionario-cadastro.component';
+import { DicionarioComponent } from './dicionario.component';
 
 describe('DicionarioCadastroComponent', () => {
-  let component: DicionarioCadastroComponent;
-  let fixture: ComponentFixture<DicionarioCadastroComponent>;
+  let component: DicionarioComponent;
+  let fixture: ComponentFixture<DicionarioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DicionarioCadastroComponent ]
+      declarations: [ DicionarioComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DicionarioCadastroComponent);
+    fixture = TestBed.createComponent(DicionarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,10 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Palavra } from 'src/app/dicionario-cadastro/palavra.interface';
+import { DicionarioTexto } from 'src/app/dicionario-texto/dicionario-texto.interface';
 import { DicionarioService } from 'src/app/dicionario.service';
-import { Dicionario } from 'src/app/dicionario-cadastro/dicionario.inteface';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dicionario-texto-cadastro',
@@ -27,14 +25,14 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     idDicionario: ['', Validators.required],
     texto: ['', Validators.required],
     definicao: ['', Validators.required],
-    definicao_extra: [''],
+    definicaoExtra: [''],
   })
 
   submitted = false;
 
-  @Input('palavraEditar') palavraEditar?: Palavra;
+  @Input('palavraEditar') palavraEditar?: DicionarioTexto;
   @Input('idDicionario') idDicionario?: number;
-  @Output('aoSubmeter') submeterPalavraEventEmitter = new EventEmitter<Palavra>();
+  @Output('aoSubmeter') submeterPalavraEventEmitter = new EventEmitter<DicionarioTexto>();
 
   constructor(
     private modalService: BsModalService,
@@ -60,7 +58,7 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     if (!this.palavraForm.valid) {
       return;
     }
-    const palavra: Palavra = this.palavraForm.getRawValue();
+    const palavra: DicionarioTexto = this.palavraForm.getRawValue();
     if (palavra.id && palavra.id > 0) {
       this.atualizaPalavra(palavra);
     } else {
@@ -72,14 +70,14 @@ export class DicionarioTextoCadastroComponent implements OnInit {
     this.modalService.hide();
   }
 
-  adicionaPalavra(palavra: Palavra) {
+  adicionaPalavra(palavra: DicionarioTexto) {
     console.log(palavra);
     this.dicionarioService.adicionaPalavra(palavra).subscribe(palavra => {
       this.submeterPalavraEventEmitter.emit(palavra);
     });
   }
 
-  atualizaPalavra(palavraAtualizar: Palavra) {
+  atualizaPalavra(palavraAtualizar: DicionarioTexto) {
     console.log(palavraAtualizar)
     this.dicionarioService.atualizaPalavra(palavraAtualizar).subscribe(palavra => {
       this.submeterPalavraEventEmitter.emit(palavra);

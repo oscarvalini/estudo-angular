@@ -32,12 +32,11 @@
 
     <div class="item-formulario">
       <label class="form-label" for="definicao-extra">Definição extra</label>
-      <!-- </textarea class="form-control" type="text" formControlName="definicao_extra" name="definicao-extra"> -->
       <editor
-        formControlName="definicao_extra"
+        formControlName="definicaoExtra"
         name="definicao-extra"
         [init]="{
-          height: 500,
+          height: 300,
           menubar: false,
           plugins: [
             'advlist autolink lists link image charmap print preview anchor',
@@ -51,7 +50,8 @@
         }"
       ></editor>
     </div>
-
-    <button class="btn btn-primary" (submit)="onSubmit()">Salvar</button>
+    <div class="d-flex justify-content-center mt-2">
+      <app-botao-padrao (submit)="onSubmit()">Salvar</app-botao-padrao>
+    </div>
   </form>
 </div>

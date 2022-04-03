@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { DicionarioService } from '../dicionario.service';
-import { Dicionario } from '../dicionario-cadastro/dicionario.inteface';
+import { Dicionario } from '../dicionario/dicionario.inteface';
 import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Palavra } from '../dicionario-cadastro/palavra.interface';
+import { DicionarioTexto } from './dicionario-texto.interface';
 
 @Component({
   selector: 'app-dicionario-texto',
@@ -14,19 +14,23 @@ import { Palavra } from '../dicionario-cadastro/palavra.interface';
 })
 export class DicionarioTextoComponent implements OnInit {
 
+  modalOptions: ModalOptions = {
+    class: 'modal-lg'
+  }
+
   iconeAdicionar = faPlusCircle;
   iconeAjuda = faQuestionCircle;
   iconeExcluir = faXmark;
   iconeEditar = faPencil;
 
   modalRef?: BsModalRef;
-  @ViewChild('template') elementoModalRef!: TemplateRef<any>
+  @ViewChild('templateModalDicionarioTexto') modalDicionarioTexto!: TemplateRef<any>
   @ViewChild('templateModalConfirmacao') modalConfirmacaoRef!: TemplateRef<any>
 
   dicionario!: Dicionario;
-  palavras: Palavra[] = []
+  palavras: DicionarioTexto[] = []
 
-  palavraSelecionada?: Palavra;
+  palavraSelecionada?: DicionarioTexto;
   idPalavraExcluir?: number;
 
   constructor(
@@ -51,13 +55,13 @@ export class DicionarioTextoComponent implements OnInit {
     })
   }
 
-  abrePalavraForm(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  abreModalDicionarioTexto() {
+    this.modalRef = this.modalService.show(this.modalDicionarioTexto, Object.assign({}, this.modalOptions));
   }
 
-  editaPalavra(palavra: Palavra) {
-    this.modalRef = this.modalService.show(this.elementoModalRef);
+  editaPalavra(palavra: DicionarioTexto) {
     this.palavraSelecionada = palavra;
+    this.abreModalDicionarioTexto();
   }
 
   excluiPalavra(idPalavra: number) {

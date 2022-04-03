@@ -1,6 +1,5 @@
-
 header {
-  height: 75px;
+  height: 100px;
 }
 
 main {
@@ -22,6 +21,7 @@ main {
 .links-titulo a {
   text-decoration: none;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .menu-dicionario{
@@ -45,26 +45,26 @@ main {
   font-weight:600;
 }
 
-.dicionary-header-item {
+.lista-palavras-item {
+  padding: 0.5em;
+  border-bottom: solid 2px #CCC;
+}
+
+.lista-palavras-item:nth-child(even) {
+  background-color: #ebebeb;
+}
+
+.lista-palavras-item a {
   float: right;
   text-align: center;
-  padding: 15px 10px 5px 10px;
-  text-decoration: none;
+  text-decoration: underline;
+  cursor: pointer;
   font-size: 17px;
 }
 
-.table-item-title {
-  float: left;
-  text-align: left;
-
-}
-.table-item-see-more {
-  float: right;
-  
-}
-
-.table-item-description {
-  float: left;
+.lista-palavras-item dt {
+  margin-bottom: 1em;
+  font-size: 1.2rem;
 }
 
 .modal-detalhes-dicionario{  
@@ -79,16 +79,6 @@ main {
   padding: 20px;
 }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.table-item-title {
-  font-weight: bolder;
-}
-
 .modal-body {
   max-height:800px; 
   overflow-y: auto;
@@ -98,19 +88,4 @@ table {
   /*Insira o código debaixo de tudo*/
   overflow: scroll;
 }
-  
-td,
-th {
-  text-align: left;
-  padding: 8px;
-}
-
-tr {
-  border-bottom: 1px solid #7c7c7c;
-}
-
-tr:nth-child(even) {
-  background-color: #ebebeb;
-}
-
 

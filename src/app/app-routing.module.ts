@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DicionarioCadastroComponent } from './dicionario-cadastro/dicionario-cadastro.component';
+import { DicionarioComponent } from './dicionario/dicionario.component';
 import { DicionarioConsultaComponent } from './dicionario-consulta/dicionario-consulta.component';
 import { DicionarioTextoComponent } from './dicionario-texto/dicionario-texto.component';
 
@@ -10,7 +10,7 @@ const routes: Routes = [
     redirectTo: 'dicionarios',
     pathMatch: 'full'
   },
-  { path: 'dicionarios', component: DicionarioCadastroComponent },
+  { path: 'dicionarios', component: DicionarioComponent },
   { path: 'dicionarios/:id', component: DicionarioConsultaComponent },
   { path: 'dicionarios/:id/palavras', component: DicionarioTextoComponent},
   { path: '**', redirectTo: 'dicionarios' }
