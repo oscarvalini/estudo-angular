@@ -26,7 +26,8 @@
     </ul>
 
 
-    <app-paginador *ngIf="paginadorNecessario()"
+    <app-paginador
+    [iniciarSemFiltro]="true"
     [palavras]="palavras"
     (aoMudar)="filtrarPorLetra($event)"
   ></app-paginador>

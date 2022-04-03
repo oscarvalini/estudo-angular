@@ -8,10 +8,15 @@
     </div>
   </section>
 
-  <app-paginador
+  <app-paginador  *ngIf="paginadorNecessario(); else espacador"
+    [iniciarSemFiltro]="false"
     [palavras]="palavras"
     (aoMudar)="filtrarPorLetra($event)"
   ></app-paginador>
+
+  <ng-template #espacador><div class="espacador"></div></ng-template> 
+
+
 
   <div class="lista-palavras">
     <dl>

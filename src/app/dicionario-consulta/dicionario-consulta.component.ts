@@ -61,11 +61,13 @@ export class DicionarioConsultaComponent implements OnInit {
     if (letra == '') {
       this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
         this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
       })
     } else {
       this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
         console.log(palavras)
         this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
       })
     }
   }
@@ -78,6 +80,11 @@ export class DicionarioConsultaComponent implements OnInit {
       return 0;
     });
   }
+  paginadorNecessario(){
+    console.log(this.palavras.length )
+    return this.palavras.length > 25
+  }
+
 
   aoSubmeter(dicionario: Dicionario) {
     this.dicionarioService.buscaDicionario(this.dicionario.id!).subscribe((dicionario) => this.dicionario = dicionario);

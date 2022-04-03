@@ -20,7 +20,7 @@
 
     <ul class="lista-dicionarios">
         <li *ngFor="let dicionario of dicionarios" class="dicionario">
-            <span class="dicionario-nome">{{dicionario.nome}}</span>
+            <span class="dicionario-nome" routerLink="{{dicionario.id}}">{{dicionario.nome}}</span>
             <fa-icon 
                 class="dicionario-acao"
                 [icon]="iconeLupa"

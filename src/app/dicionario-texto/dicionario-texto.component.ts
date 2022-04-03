@@ -71,19 +71,18 @@ export class DicionarioTextoComponent implements OnInit {
     if (letra == '') {
       this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
         this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
       })
     } else {
       this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
-        console.log(palavras)
+        
         this.palavrasExibir = this.ordernarPalavras(palavras);
+        console.log(this.palavrasExibir)
       })
     }
   }
 
-  paginadorNecessario(){
-    return this.palavras.length > 25
-  }
-
+  
   abreModalDicionarioTexto() {
     this.modalRef = this.modalService.show(this.modalDicionarioTexto, Object.assign({}, this.modalOptions));
   }
