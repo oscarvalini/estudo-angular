@@ -22,6 +22,7 @@ import { DicionarioFormComponent } from './dicionario/dicionario-form/dicionario
 import { ModalPadraoComponent } from './shared/modal-padrao/modal-padrao.component';
 import { BotaoPadraoComponent } from './shared/botao-padrao/botao-padrao.component';
 import { TrimInputDirective } from './shared/directives/trim-input.directive';
+import { PaginadorComponent } from './shared/paginador/paginador.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TrimInputDirective } from './shared/directives/trim-input.directive';
     DicionarioFormComponent,
     ModalPadraoComponent,
     BotaoPadraoComponent,
-    TrimInputDirective
+    TrimInputDirective,
+    PaginadorComponent
   ],
   imports: [
     HttpClientModule,
