@@ -18,14 +18,15 @@ export class DicionarioConsultaComponent implements OnInit {
   @ViewChild('templateDefinicaoExtra') templateDefinicaoExtraRef!: TemplateRef<BsModalRef>
 
   modalRef?: BsModalRef;
+
   iconeEditar = faPencil;
   iconeDocumento = faFileLines;
   iconeConfig = faGear;
   iconeFechar = faXmark;
+
   palavras: DicionarioTexto[] = [];
+  palavrasExibir: DicionarioTexto[] = [];
   palavraModal!: DicionarioTexto;
-  letrasNoDicionario: Set<string> = new Set();
-  letraSelecionada: string = 'Todos';
   dicionario!: Dicionario;
 
   constructor(
@@ -48,33 +49,34 @@ export class DicionarioConsultaComponent implements OnInit {
       }
     })
 
+
     this.dicionarioService.buscaPalavrasPorIdDicionario(idDicionario).subscribe(palavras => {
       this.palavras = palavras;
-      this.palavras.forEach((p) => this.letrasNoDicionario.add(p.texto.trim().charAt(0).toUpperCase()));
-      if (this.letrasNoDicionario.size > 1) {
-        this.letrasNoDicionario.add('Todos');
-      }
-      console.log(palavras)
+      this.palavrasExibir = this.ordernarPalavras(this.palavras);
+
     })
   }
 
   public filtrarPorLetra(letra: string) {
-    if (letra == 'Todos') {
+    if (letra == '') {
       this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
-        this.palavras = palavras;
-        this.letraSelecionada = 'Todos';
+        this.palavrasExibir = this.ordernarPalavras(palavras);
       })
     } else {
       this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
         console.log(palavras)
-        this.palavras = palavras
-        this.letraSelecionada = letra;
+        this.palavrasExibir = this.ordernarPalavras(palavras);
       })
     }
   }
 
-  letraEstaSelecionada(letra: String) {
-    return this.letraSelecionada == letra;
+
+  public ordernarPalavras(palavrasParaOrdenar : DicionarioTexto[]){
+    return palavrasParaOrdenar.sort((a, b) => {
+      if (a.texto < b.texto) { return -1; }
+      if (a.texto > b.texto) { return 1; }
+      return 0;
+    });
   }
 
   aoSubmeter(dicionario: Dicionario) {

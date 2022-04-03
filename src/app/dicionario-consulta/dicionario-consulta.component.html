@@ -8,11 +8,14 @@
     </div>
   </section>
 
-  <app-paginador></app-paginador>
+  <app-paginador
+    [palavras]="palavras"
+    (aoMudar)="filtrarPorLetra($event)"
+  ></app-paginador>
 
   <div class="lista-palavras">
     <dl>
-      <div *ngFor="let palavra of palavras" class="lista-palavras-item">
+      <div *ngFor="let palavra of palavrasExibir" class="lista-palavras-item">
         <a 
           *ngIf="palavra.definicaoExtra"
           [ngStyle]="{'color' : dicionario.corTitulo }" 

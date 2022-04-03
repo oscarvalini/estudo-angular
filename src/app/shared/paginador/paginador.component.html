@@ -1,4 +1,9 @@
-<!-- <div class="menu-dicionario">
-    <a *ngFor="let letra of letrasNoDicionario" (click)="filtrarPorLetra(letra)"
-      [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
-  </div> -->
+<div class="menu-dicionario">
+
+    <span *ngFor="let letra of letras">
+        <a  *ngIf="letraExiste(letra); else semClique" (click)="filtrarPorLetra(letra)"
+        [ngClass]="{'active' : letraEstaSelecionada(letra)}"> {{letra}} </a>
+        <ng-template #semClique><a class="inativo">{{letra}}</a></ng-template> 
+    </span>
+    <a (click)="filtrarPorLetra('')"  [ngClass]="{'active' : letraEstaSelecionada('')}" >Todos</a>
+  </div>

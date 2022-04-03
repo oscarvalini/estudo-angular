@@ -13,8 +13,14 @@
     padding: 5px 5px;
     text-decoration: none;
     cursor: pointer;
+    color: rgb(0, 113, 199);
   }
   
   .menu-dicionario .active{
     font-weight:600;
+  }
+
+  .menu-dicionario a.inativo{
+    cursor:default;
+    color: rgb(115, 160, 194);
   }
