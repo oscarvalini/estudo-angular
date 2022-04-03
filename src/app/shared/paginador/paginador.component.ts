@@ -18,10 +18,11 @@ export class PaginadorComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('OnCHANGE CHAMADO!!!!!! AAAAAAAAAA')
-    const palavras: DicionarioTexto[] = changes['palavras'].currentValue;
-    this.letrasNoDicionario = new Set(palavras.map((palavra: DicionarioTexto) => palavra.texto.charAt(0).trim().toUpperCase()));
-    this.letraSelecionada = palavras.length < 25 ? '' : [...this.letrasNoDicionario][0] 
+    if(changes['palavras']) {
+      const palavras: DicionarioTexto[] = changes['palavras'].currentValue;
+      this.letrasNoDicionario = new Set(palavras.map((palavra: DicionarioTexto) => palavra.texto.charAt(0).trim().toUpperCase()));
+      this.letraSelecionada = palavras.length < 25 ? '' : [...this.letrasNoDicionario][0] 
+    }
   }
 
   ngOnInit(): void {

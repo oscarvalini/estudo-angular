@@ -19,7 +19,7 @@ export class DicionarioFormComponent implements OnInit {
     nome: ['', Validators.required],
     corBotao: ['#000000', Validators.required],
     corBotaoFonte: ['#FFFFFF', Validators.required],
-    corTitulo: ['#FFFFFF', Validators.required],
+    corTitulo: ['#000000', Validators.required],
     corIcone: ['#FFFFFF', Validators.required]
   })
 

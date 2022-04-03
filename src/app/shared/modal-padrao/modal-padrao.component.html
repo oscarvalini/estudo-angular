@@ -1,9 +1,9 @@
-<div class="modal-header">
+<div class="modal-header" [style.backgroundColor]="corDestaque" [style.color]="corFonte">
     <div class="titulo">
         <fa-icon [icon]="iconeTitulo" size="lg"></fa-icon>
         <h4 class="modal-title">{{titulo}}</h4>
     </div>
-    <button class="btn text-white p-0">
+    <button class="p-0">
         <fa-icon class="pull-right" aria-hidden="true" [icon]="iconeExcluir" (click)="botaoFecharClicado()" size="2x"></fa-icon>
     </button>
 </div>

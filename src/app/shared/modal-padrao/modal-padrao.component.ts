@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,6 +11,8 @@ export class ModalPadraoComponent {
   @Output('aoFechar') fecharModalEvent = new EventEmitter();
   @Input('iconeTitulo') iconeTitulo = faPencil;
   @Input('titulo') titulo = '';
+  @Input('corFonte') corFonte = '#FFF';
+  @Input('corDestaque') corDestaque = '#253C89';
 
   iconeExcluir = faXmark;
 
