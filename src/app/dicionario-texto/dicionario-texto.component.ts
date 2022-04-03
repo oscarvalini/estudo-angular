@@ -80,6 +80,9 @@ export class DicionarioTextoComponent implements OnInit {
     }
   }
 
+  paginadorNecessario(){
+    return this.palavras.length > 25
+  }
 
   abreModalDicionarioTexto() {
     this.modalRef = this.modalService.show(this.modalDicionarioTexto, Object.assign({}, this.modalOptions));
