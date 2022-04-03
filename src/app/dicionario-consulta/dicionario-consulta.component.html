@@ -1,10 +1,10 @@
-<header [ngStyle]="{'background-color': dicionario?.corIcone ?? ''}"></header>
+<header [ngStyle]="{'background-color': dicionario?.corTitulo ?? ''}"></header>
 <main>
   <section class="secao-titulo">
     <h3 [ngStyle]="{'color' : dicionario?.corTitulo }">{{dicionario?.nome ?? ''}}</h3>
     <div class="links-titulo">
       <a [ngStyle]="{'color' : dicionario?.corTitulo ?? '' }" routerLink="palavras">abc</a>
-      <a (click)="abrirModalDicionario()"><fa-icon [ngStyle]="{'color' : dicionario?.corIcone ?? '' }" [icon]="iconeConfig" size="lg"></fa-icon></a>
+      <a (click)="abrirModalDicionario()"><fa-icon [ngStyle]="{'color' : dicionario?.corTitulo ?? '' }" [icon]="iconeConfig" size="lg"></fa-icon></a>
     </div>
   </section>
 
@@ -61,9 +61,20 @@
   <app-modal-padrao
       [iconeTitulo]="iconeDocumento"
       [titulo]="palavraModal.texto"
+      [corFonte]="dicionario.corBotaoFonte"
+      [corDestaque]="dicionario.corBotao"
       (aoFechar)="modalRef?.hide()"
   >
     <div class="modal-body" [innerHTML]="palavraModal.definicaoExtra"></div>
+    <div class="d-flex justify-content-center">
+      <app-botao-padrao
+        [corBotao]="dicionario.corBotao"
+        [corFonteBotao]="dicionario.corBotaoFonte"
+        (click)="modalRef?.hide()"
+      >
+        Fechar
+      </app-botao-padrao>
+    </div>
   </app-modal-padrao>
 </ng-template>
 

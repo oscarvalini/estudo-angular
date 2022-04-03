@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-botao-padrao',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./botao-padrao.component.css']
 })
 export class BotaoPadraoComponent implements OnInit {
+
+  @Input('corBotao') corBotao = '#253C89';
+  @Input('corFonteBotao') corFonteBotao ='#FFFFFF'
 
   constructor() { }
 

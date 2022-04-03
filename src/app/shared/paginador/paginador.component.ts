@@ -20,12 +20,13 @@ export class PaginadorComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('OnCHANGE CHAMADO!!!!!! AAAAAAAAAA')
-    console.log(changes['palavras'].currentValue);
-    const palavras: DicionarioTexto[] = changes['palavras'].currentValue;
-    this.letrasNoDicionario = new Set(palavras.map((palavra: DicionarioTexto) => palavra.texto.charAt(0).trim().toUpperCase()));
-    this.letraSelecionada = (palavras.length < 25 ) ?  '' : [...this.letrasNoDicionario][0] 
-    this.mudaLetraEvent.emit(this.letraSelecionada);
+    if(changes['palavras']) {
+      console.log(changes['palavras'].currentValue);
+      const palavras: DicionarioTexto[] = changes['palavras'].currentValue;
+      this.letrasNoDicionario = new Set(palavras.map((palavra: DicionarioTexto) => palavra.texto.charAt(0).trim().toUpperCase()));
+      this.letraSelecionada = (palavras.length < 25 ) ?  '' : [...this.letrasNoDicionario][0] 
+      this.mudaLetraEvent.emit(this.letraSelecionada);
+    }
   }
 
   ngOnInit(): void {
@@ -33,8 +34,6 @@ export class PaginadorComponent implements OnInit, OnChanges {
     console.log('Length: ' +  this.letrasNoDicionario.size)
     console.log('Oninit ' + Array.from(this.letras));
     console.log( 'letraselecionada:' + this.letraSelecionada );
-
- 
   }
 
   filtrarPorLetra(letra: string) {
