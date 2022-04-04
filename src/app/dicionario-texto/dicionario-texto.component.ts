@@ -1,9 +1,8 @@
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DicionarioService } from '../dicionario.service';
 import { Dicionario } from '../dicionario/dicionario.inteface';
-import { faGear, faMagnifyingGlass, faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faPlusCircle, faQuestionCircle, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DicionarioTexto } from './dicionario-texto.interface';
 
@@ -28,9 +27,8 @@ export class DicionarioTextoComponent implements OnInit {
   @ViewChild('templateModalConfirmacao') modalConfirmacaoRef!: TemplateRef<any>
 
   dicionario!: Dicionario;
-  palavras: DicionarioTexto[] = []
+  palavras!: DicionarioTexto[];
   palavrasExibir: DicionarioTexto[] = []
-
 
   palavraSelecionada?: DicionarioTexto;
   idPalavraExcluir?: number;
@@ -43,46 +41,35 @@ export class DicionarioTextoComponent implements OnInit {
 
   ngOnInit(): void {
     const idDicionario = this.route.snapshot.params['id'];
-    this.dicionarioService.buscaDicionario(idDicionario).subscribe(dicionarioEncontrado => {
-      this.dicionario = dicionarioEncontrado;
-      this.buscaPalavras();
+    this.dicionarioService.buscaDicionario(idDicionario).subscribe(dicionario => {
+      this.dicionario = dicionario;
     });
+
+    this.dicionarioService.buscaPalavrasPorIdDicionario(idDicionario).subscribe(palavras => {
+      this.palavras = [...palavras];
+    })
 
     this.modalService.onHide.subscribe(() => { this.palavraSelecionada = undefined })
   }
 
   buscaPalavras() {
     this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
-      this.palavras = palavras;
-      this.palavrasExibir = this.ordernarPalavras(this.palavras)
+      this.palavras = [...palavras];
     })
-  }
-
-
-  ordernarPalavras(palavrasParaOrdenar : DicionarioTexto[]){
-    return palavrasParaOrdenar.sort((a, b) => {
-      if (a.texto < b.texto) { return -1; }
-      if (a.texto > b.texto) { return 1; }
-      return 0;
-    });
   }
 
   public filtrarPorLetra(letra: string) {
     if (letra == '') {
-      this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
-        this.palavrasExibir = this.ordernarPalavras(palavras);
-        console.log(this.palavrasExibir)
-      })
+      setTimeout(() => {
+        this.palavrasExibir = [...this.palavras];
+      }, 0)
     } else {
-      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
-        
-        this.palavrasExibir = this.ordernarPalavras(palavras);
-        console.log(this.palavrasExibir)
-      })
+      setTimeout(() => {
+        this.palavrasExibir = [...this.palavras].filter(palavra =>  palavra.texto.trim().toUpperCase().charAt(0) == letra);
+      }, 0)
     }
   }
 
-  
   abreModalDicionarioTexto() {
     this.modalRef = this.modalService.show(this.modalDicionarioTexto, Object.assign({}, this.modalOptions));
   }
@@ -99,7 +86,6 @@ export class DicionarioTextoComponent implements OnInit {
 
   confirmaExclusao(): void {
     this.dicionarioService.excluiPalavra(this.idPalavraExcluir!).subscribe(response => {
-      console.log(response)
       this.buscaPalavras();
       this.modalRef?.hide();
     });

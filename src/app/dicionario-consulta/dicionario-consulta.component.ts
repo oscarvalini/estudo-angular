@@ -42,49 +42,35 @@ export class DicionarioConsultaComponent implements OnInit {
     this.dicionarioService.buscaDicionario(idDicionario).subscribe({
       next: (dicionario) => {
         this.dicionario = dicionario;
-        console.log(dicionario);
       },
       error: (err) => {
         this.routingService.navigateByUrl('..');
       }
     })
 
-
     this.dicionarioService.buscaPalavrasPorIdDicionario(idDicionario).subscribe(palavras => {
       this.palavras = palavras;
-      this.palavrasExibir = this.ordernarPalavras(this.palavras);
-
+      if(!this.paginadorNecessario()) {
+        this.palavrasExibir = palavras;
+      }
     })
   }
 
   public filtrarPorLetra(letra: string) {
     if (letra == '') {
-      this.dicionarioService.buscaPalavrasPorIdDicionario(this.dicionario.id!).subscribe(palavras => {
-        this.palavrasExibir = this.ordernarPalavras(palavras);
-        console.log(this.palavrasExibir)
-      })
+      setTimeout(() => {
+        this.palavrasExibir = [...this.palavras];
+      }, 0)
     } else {
-      this.dicionarioService.buscaPalavrasPelaPrimeiraLetra(this.dicionario.id!, letra).subscribe(palavras => {
-        console.log(palavras)
-        this.palavrasExibir = this.ordernarPalavras(palavras);
-        console.log(this.palavrasExibir)
-      })
+      setTimeout(() => {
+        this.palavrasExibir = [...this.palavras].filter(palavra =>  palavra.texto.charAt(0) == letra);
+      }, 0)
     }
   }
 
-
-  public ordernarPalavras(palavrasParaOrdenar : DicionarioTexto[]){
-    return palavrasParaOrdenar.sort((a, b) => {
-      if (a.texto < b.texto) { return -1; }
-      if (a.texto > b.texto) { return 1; }
-      return 0;
-    });
-  }
   paginadorNecessario(){
-    console.log(this.palavras.length )
-    return this.palavras.length > 25
+    return this.palavras.length > 25;
   }
-
 
   aoSubmeter(dicionario: Dicionario) {
     this.dicionarioService.buscaDicionario(this.dicionario.id!).subscribe((dicionario) => this.dicionario = dicionario);

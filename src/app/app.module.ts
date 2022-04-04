@@ -27,12 +27,12 @@ import { PaginadorComponent } from './shared/paginador/paginador.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     DicionarioComponent,
     DicionarioConsultaComponent,
     DicionarioTextoComponent,
     DicionarioTextoCadastroComponent,
     DicionarioFormComponent,
+    HeaderComponent,
     ModalPadraoComponent,
     BotaoPadraoComponent,
     TrimInputDirective,

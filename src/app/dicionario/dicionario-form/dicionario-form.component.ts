@@ -57,17 +57,13 @@ export class DicionarioFormComponent implements OnInit {
   }
 
   adicionaDicionario(dicionario: Dicionario) {
-    console.log(dicionario)
     this.dicionarioService.criaDicionario(dicionario).subscribe(response => {
-      console.log(response)
       this.submeteEvent.emit(response);
     });
   }
 
   atualizaDicionario(dicionarioAtualizar: Dicionario) {
-    console.log(dicionarioAtualizar)
     this.dicionarioService.atualizaDicionario(dicionarioAtualizar).subscribe(response => {
-      console.log(response)
       this.submeteEvent.emit(response);
     });
   }

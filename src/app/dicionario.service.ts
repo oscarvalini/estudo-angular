@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dicionario } from './dicionario/dicionario.inteface';
 import { DicionarioTexto } from './dicionario-texto/dicionario-texto.interface';
 import { Observable, throwError } from 'rxjs';
-import { catchError, filter, find, map, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 
 
 @Injectable({
@@ -65,15 +65,23 @@ export class DicionarioService {
   buscaPalavrasPorIdDicionario(idDicionario: number) {
     const options = idDicionario ? { params: new HttpParams().set('idDicionario', idDicionario) } : {};
     return this.http.get<DicionarioTexto[]>(this.palavrasUrl, options).pipe(
+      map(results => results.sort((a, b) => {
+        if (a.texto < b.texto) { return -1; }
+        if (a.texto > b.texto) { return 1; }
+        return 0;
+      })),
       catchError(this.handleError)
     );
   }
 
   buscaPalavrasPelaPrimeiraLetra(idDicionario: number, letra: string) {
     const options = idDicionario ? { params: new HttpParams().set('idDicionario', idDicionario).append('texto', `^${letra}`) } : {};
-    console.log(letra);
-    console.log(options);
     return this.http.get<DicionarioTexto[]>(this.palavrasUrl, options).pipe(
+      map(results => results.sort((a, b) => {
+        if (a.texto < b.texto) { return -1; }
+        if (a.texto > b.texto) { return 1; }
+        return 0;
+      })),
       catchError(this.handleError)
     );
   }
@@ -91,8 +99,6 @@ export class DicionarioService {
       catchError(this.handleError)
     );
   }
-
-  
 
   private handleError (error: any) {
     console.error(error);

@@ -16,8 +16,6 @@
 
   <ng-template #espacador><div class="espacador"></div></ng-template> 
 
-
-
   <div class="lista-palavras">
     <dl>
       <div *ngFor="let palavra of palavrasExibir" class="lista-palavras-item">
@@ -77,20 +75,3 @@
     </div>
   </app-modal-padrao>
 </ng-template>
-
-<!-- <ng-template #templateDefinicaoExtra class="modal-lg">
-  <div class="modal-header" [style.backgroundColor]="dicionario.corBotao">
-    <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-left" aria-hidden="true" [icon]="iconeDocumento"
-      size="lg"></fa-icon>
-    <h4 [style.color]="dicionario.corBotaoFonte">{{ palavraModal.texto}}</h4>
-    <fa-icon [style.color]="dicionario.corBotaoFonte" class="pull-right" aria-hidden="true" [icon]="iconeFechar"
-      (click)="modalRef?.hide()" size="lg"></fa-icon>
-  </div>
-  <div class="modal-body" [innerHTML]="palavraModal.definicaoExtra">
-  </div>
-  <div class="col-md-12 text-center modal-detalhes-dicionario-botao">
-    <button [style.backgroundColor]="dicionario.corBotao" [style.color]="dicionario.corBotaoFonte"
-      class="btn modal-detalhes-dicionario btn-small " (click)="modalRef?.hide()">Fechar
-    </button>
-  </div>
-</ng-template> -->

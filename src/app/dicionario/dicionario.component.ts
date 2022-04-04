@@ -57,19 +57,13 @@ export class DicionarioComponent implements OnInit {
   }
 
   aoSubmeter(dicionario: Dicionario) {
-    console.log(dicionario);
     this.dicionarioEditar = undefined;
     this.modalRef?.hide();
     this.buscaDicionarios();
   }
 
-  changeColor(event: any) {
-    console.log(event);
-  }
-
   confirmaExclusao(): void {
     this.dicionarioService.excluiDicionario(this.idDicionarioExcluir).subscribe(response => {
-      console.log(response)
       this.buscaDicionarios();
       this.modalRef?.hide();
     });

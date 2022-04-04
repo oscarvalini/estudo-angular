@@ -71,14 +71,12 @@ export class DicionarioTextoCadastroComponent implements OnInit {
   }
 
   adicionaPalavra(palavra: DicionarioTexto) {
-    console.log(palavra);
     this.dicionarioService.adicionaPalavra(palavra).subscribe(palavra => {
       this.submeterPalavraEventEmitter.emit(palavra);
     });
   }
 
   atualizaPalavra(palavraAtualizar: DicionarioTexto) {
-    console.log(palavraAtualizar)
     this.dicionarioService.atualizaPalavra(palavraAtualizar).subscribe(palavra => {
       this.submeterPalavraEventEmitter.emit(palavra);
     });
